@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="particles-container"></div>
     <div id="game">
         <header id="resource-header">
             <div class="resource-display">
@@ -68,7 +69,15 @@
                 </div>
                 <div id="tab-content-area">
                     <!-- Generators Tab -->
-                    <div class="tab-content active" id="generators-content"></div>
+                    <div class="tab-content active" id="generators-content">
+                        <div id="buy-controls">
+                            <span>Buy Amount:</span>
+                            <button class="buy-amt-btn active" data-amt="1">1x</button>
+                            <button class="buy-amt-btn" data-amt="10">10x</button>
+                            <button class="buy-amt-btn" data-amt="max">Max</button>
+                        </div>
+                        <div id="generators-list"></div>
+                    </div>
                     <!-- Research Tab -->
                     <div class="tab-content" id="research-content">
                         <p class="tab-description">Use Stardust to unlock powerful new capabilities. Only one can be researched at a time.</p>
@@ -76,6 +85,7 @@
                     </div>
                     <!-- Prisms Tab -->
                     <div class="tab-content" id="prisms-content">
+                        <button id="exit-prism-view" title="Close Prism View">×</button>
                         <div id="prism-boost-container">
                             <p class="tab-description">Hold the button below to focus your cosmic energy, temporarily boosting Prism gain rate and amount by 3x each (9x total).</p>
                              <button id="prism-boost-button">FOCUS ENERGY</button>
