@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Forge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="particles-container"></div>
+    <div id="game">
+        <header id="resource-header">
+            <div class="resource-display">
+                <span class="resource-label">Energy</span>
+                <span id="energy-display" class="resource-value">0</span>
+                <span id="energy-ps-display" class="resource-ps">(+0/s)</span>
+            </div>
+            <div class="resource-display">
+                <span class="resource-label">Stardust</span>
+                <span id="stardust-display" class="resource-value">0</span>
+                <span id="stardust-ps-display" class="resource-ps">(+0/s)</span>
+            </div>
+            <div class="resource-display prestige">
+                <span class="resource-label">Nebula Gas</span>
+                <span id="nebula-gas-display" class="resource-value">0</span>
+                <span id="nebula-gas-boost-display" class="resource-ps">(+0% boost)</span>
+            </div>
+            <div class="resource-display">
+                <span class="resource-label">Prisms</span>
+                <span id="prisms-display" class="resource-value">0</span>
+                <span id="prisms-ps-display" class="resource-ps">(+0/s)</span>
+            </div>
+            <button id="settings-button" title="Options">⚙️</button>
+        </header>
+
+        <div id="challenge-indicator">Challenge Active</div>
+
+        <div id="research-progress-container">
+            <div id="research-progress-label">Researching: Quantum Entanglement</div>
+            <div id="research-progress-bar-outer">
+                <div id="research-progress-bar-inner"></div>
+            </div>
+            <div id="research-progress-timer">00:00</div>
+        </div>
+
+        <main id="main-content">
+            <div id="left-column">
+                <div id="forge-container">
+                    <button id="forge-button">FORGE</button>
+                    <div id="forge-click-value">+1 Energy</div>
+                </div>
+                <div id="log-container">
+                    <div class="log-header">LOG</div>
+                    <div id="log-messages"></div>
+                </div>
+            </div>
+
+            <div id="right-column">
+                <div id="tabs">
+                    <button class="tab-button active" data-tab="generators">Generators</button>
+                    <button class="tab-button" data-tab="research">Research</button>
+                    <button class="tab-button" data-tab="prisms">Prisms</button>
+                    <button class="tab-button" data-tab="consumables">Consumables</button>
+                    <button class="tab-button" data-tab="challenges">Challenges</button>
+                    <button class="tab-button" data-tab="big-bang">The Beyond</button>
+                </div>
+                <div id="tab-content-area">
+                    <!-- Generators Tab -->
+                    <div class="tab-content active" id="generators-content">
+                        <div id="buy-controls">
+                            <span>Buy Amount:</span>
+                            <button class="buy-amt-btn active" data-amt="1">1x</button>
+                            <button class="buy-amt-btn" data-amt="10">10x</button>
+                            <button class="buy-amt-btn" data-amt="max">Max</button>
+                        </div>
+                        <div id="generators-list"></div>
+                    </div>
+                    <!-- Research Tab -->
+                    <div class="tab-content" id="research-content">
+                        <p class="tab-description">Use Stardust to unlock powerful new capabilities. Only one can be researched at a time.</p>
+                        <div id="research-tree"></div>
+                    </div>
+                    <!-- Prisms Tab -->
+                    <div class="tab-content" id="prisms-content">
+                        <button id="exit-prism-view" title="Close Prism View">×</button>
+                        <div id="prism-boost-container">
+                            <p class="tab-description">Hold the button below to focus your cosmic energy, temporarily boosting Prism gain rate and amount by 3x each (9x total).</p>
+                             <button id="prism-boost-button">FOCUS ENERGY</button>
+                        </div>
+                        <div id="prism-tree-container"></div>
+                    </div>
+                    <!-- Consumables Tab -->
+                    <div class="tab-content" id="consumables-content">
+                        <p class="tab-description">Spend Energy on powerful, single-use boosts.</p>
+                        <div id="consumables-container"></div>
+                    </div>
+                    <!-- Challenges Tab -->
+                    <div class="tab-content" id="challenges-content">
+                        <p class="tab-description">Start a new run with unique restrictions to unlock powerful permanent rewards. Starting a challenge will reset your run without granting Nebula Gas.</p>
+                        <div id="challenges-container"></div>
+                    </div>
+                    <!-- Big Bang & Tiers Tab -->
+                    <div class="tab-content" id="big-bang-content">
+                        <h2>Tiers</h2>
+                        <p class="tab-description">Spend vast amounts of Energy to permanently advance to a new Tier of cosmic understanding, unlocking massive, permanent buffs that persist through all resets.</p>
+                        <div id="tier-info"></div>
+                        <hr>
+                        <h2>The Big Bang</h2>
+                        <p class="tab-description">Reset your current progress to create a new universe. Your accumulated Energy will condense into Nebula Gas, granting a permanent boost to all future production.</p>
+                        <div id="big-bang-stats">
+                            Big Bangs performed: <span id="big-bang-count">0</span>
+                        </div>
+                        <div class="prestige-info">
+                            <p>If you reset now, you will gain:</p>
+                            <span id="prestige-gain-display" class="prestige-value">0</span>
+                            <span class="prestige-label">Nebula Gas</span>
+                        </div>
+                        <button id="prestige-button" class="prestige-button" disabled>CREATE NEW UNIVERSE</button>
+                        <hr>
+                        <h3>Cosmic Laws</h3>
+                        <p class="tab-description">Spend Nebula Gas on permanent, powerful upgrades that persist through Big Bangs.</p>
+                        <div id="cosmic-laws-container"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Options Modal -->
+    <div id="options-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="options-close-button" class="modal-close-button">&times;</span>
+            <div id="options-content">
+                <h2>Options</h2>
+                <button id="save-button" class="option-button">Manual Save</button>
+                <button id="notation-toggle-button" class="option-button">Notation: Standard</button>
+                <button id="hard-reset-button" class="option-button danger">HARD RESET (Deletes All Progress)</button>
+                <p class="save-info">Game saves automatically every 4 seconds.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
