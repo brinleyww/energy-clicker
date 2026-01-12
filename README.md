@@ -1,5 +1,5 @@
 # Energy Clicker
-A web-based incremental clicker game focused on **logic optimization** and **AI-assisted development.**
+A web-based incremental clicker game focused on **making "energy"**
 
 ## Project Overview
 Energy Clicker was developed over the course of the 2025-2026 school year as an exploration into **JavaScript**. The project focuses on efficient state management and iterative UI design.
