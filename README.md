@@ -6,7 +6,7 @@ Energy Clicker was developed over the course of the 2025-2026 school year as an 
 
 ## Key Features
 * **Optimized Codebase:** Focused on keeping the final build under 150kb to ensure high performance and low latency across all browsers.
-* **Iterative Design:** Refined through 25+ version updates, improving and expanding upon the game every update.
+* **Iterative Design:** Refined through 25+ version updates, improving and expanding upon every update.
 * **AI-Assisted Workflow:** Utilized AI tools to accelerate the prototyping of game elements and to optimize game-state calculations.
 
 ## How to Run
