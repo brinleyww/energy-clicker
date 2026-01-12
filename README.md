@@ -15,3 +15,5 @@ Energy Clicker was developed over the course of the 2025-2026 school year as an 
 git clone https://github.com/brinleyww/energy-clicker
 ```
 2. Open index.html
+
+**OR DOWNLOAD STRAIGHT FROM THE [LATEST RELEASE](https://github.com/brinleyww/energy-clicker/releases/tag/energy_clicker)**
