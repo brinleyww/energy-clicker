@@ -2,18 +2,18 @@
 10/07/2025  v1.0.1 minor bug fixes
 10/10/2025  v1.0.2 minor bug fixes
 10/13/2025  v1.0.3 minor bug fixes
----------------------
+---
 10/17/2025  v1.2.0 added nebula gas
 10/20/2025  v1.2.1 fixed game breaking nebula gas bugs
 10/23/2025  v1.3 added new boost menu layout and booster cooldowns
----------------------
+---
 10/27/2025  v2.0 added challenges and tiering
 10/28/2025  v2.1 fixed the game breaking bugs
 10/29/2025  v2.2 major balance changes (game broken)
 10/29/2025  v2.2.1 minor fixes (game still broken)
 10/30/2025  rollback to v2.1 (game no longer broken)
 10/30/2025  v2.2.2 renamed boosters to consumables
----------------------
+---
 11/03/2025  v3.0 added prisms
 11/03/2025  v3.0.1 bug fixes
 11/06/2025  v3.1 more generators, consumables buff, new lategame consumable
@@ -26,3 +26,10 @@
 12/12/2025  v3.5 made the prism tree bigger, fixed click reg
 12/12/2025  v3.5.1 minor bug fixes
 12/12/2025  v3.5.2 improved prism ui
+1/12/2026   v3.6 added in-game changelogs
+1/14/2026   v3.6.1 fix changelogs test, make changelogs list work, remove last 3 prisms upgrades, expand prisms tree, fix tier up prices, add multiplier displays for hidden multiplers on upgrades like playtime upgrades, fix prisms tab diplaying the tab you clicked previously, nerf upgrade that removes prisms soft cap, make prisms gain slower,  remove the upgrade where stardust is connected to energy, and make the click gain number popup be depending on where you click the forge button
+1/14/2026   v3.6.2 made prisms only unlock after tiering up once
+1/15/2026   v3.6.3 hotfix
+1/15/2026   v3.6.4 prisms menu rescaled
+1/15/2026   v3.7 added a combo bar, boosts click power up to 3 times.
+1/15/2026   v3.7.1 hotfix

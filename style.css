@@ -10,6 +10,7 @@
     --accent-yellow: #fff200;
     --accent-prism: #a855f7;
     --danger-color: #ff3b3b;
+    --success-color: #00ff9d;
 }
 
 body {
@@ -93,6 +94,7 @@ body {
     flex-wrap: wrap;
     position: relative;
     flex-shrink: 0;
+    padding-right: 120px; /* Space for buttons */
 }
 .resource-display { text-align: center; min-width: 120px; }
 .resource-label { font-family: 'Orbitron', sans-serif; font-size: 1.1em; color: var(--text-secondary); }
@@ -103,11 +105,16 @@ body {
 .prestige .resource-label, .prestige .resource-value { color: var(--accent-magenta); }
 #prisms-display { color: var(--accent-prism); }
 
-/* Settings Icon */
-#settings-button {
+/* Header Controls */
+.header-controls {
     position: absolute;
     top: 10px;
     right: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+#settings-button, #changelog-button {
     width: 40px;
     height: 40px;
     background: transparent;
@@ -120,11 +127,12 @@ body {
     align-items: center;
     transition: all 0.2s;
 }
-#settings-button:hover {
+#settings-button:hover, #changelog-button:hover {
     color: var(--text-primary);
     border-color: var(--text-primary);
-    transform: rotate(90deg);
 }
+#settings-button:hover { transform: rotate(90deg); }
+#changelog-button:hover { transform: scale(1.1); }
 
 /* Challenge Indicator */
 #challenge-indicator {
@@ -210,7 +218,7 @@ body {
     font-size: 2.2em;
     cursor: pointer;
     box-shadow: 0 0 20px var(--accent-cyan), inset 0 0 20px rgba(0, 229, 255, 0.3);
-    transition: transform 0.05s, box-shadow 0.1s;
+    transition: transform 0.05s, box-shadow 0.1s, border-color 0.2s;
     outline: none;
     position: relative;
     overflow: hidden;
@@ -235,6 +243,51 @@ body {
 }
 
 #forge-click-value { margin-top: 20px; font-size: 1.3em; color: var(--accent-cyan); font-weight: bold; text-shadow: 0 0 5px var(--accent-cyan);}
+
+/* --- FORGE HEAT (COMBO) STYLES --- */
+#combo-container {
+    width: 220px;
+    margin-top: 15px;
+    text-align: center;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+#combo-container.active { opacity: 1; }
+
+#combo-display {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 6px;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+#combo-display.maxed {
+    color: var(--accent-magenta);
+    text-shadow: 0 0 10px var(--accent-magenta);
+    animation: text-pulse 0.5s infinite alternate;
+}
+
+#combo-bar-outer {
+    width: 100%;
+    height: 8px;
+    background: #0d111c;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+}
+#combo-bar-inner {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-cyan));
+    transition: width 0.1s linear, background 0.3s;
+    box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+@keyframes text-pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
 
 /* Log */
 #log-container { height: 200px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; }
@@ -427,7 +480,7 @@ body {
 #prism-canvas {
     position: relative;
     width: 2500px;
-    height: 1200px;
+    height: 1500px; /* Expanded height */
     min-height: 100%;
 }
 
@@ -483,3 +536,113 @@ body {
 .option-button:hover { background: var(--bg-tertiary); border-color: var(--accent-cyan); }
 .danger { border-color: var(--danger-color); color: var(--danger-color); }
 .danger:hover:not(:disabled) { background-color: var(--danger-color); color: var(--text-primary); border-color: var(--danger-color); }
+
+.option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 15px auto;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #333;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px; width: 16px;
+  left: 4px; bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+input:checked + .slider { background-color: var(--accent-cyan); }
+input:checked + .slider:before { transform: translateX(26px); }
+.slider.round { border-radius: 24px; }
+.slider.round:before { border-radius: 50%; }
+
+/* Changelog Styles */
+.changelog-content {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    width: 80vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+.changelog-layout {
+    display: flex;
+    height: 100%;
+}
+
+.changelog-sidebar {
+    width: 250px;
+    background: var(--bg-tertiary);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.changelog-sidebar h3 {
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--text-primary);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin: 0;
+    background: rgba(0,0,0,0.2);
+}
+
+.changelog-nav-item {
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.2s, color 0.2s;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9em;
+}
+
+.changelog-nav-item:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--accent-cyan);
+}
+
+.changelog-nav-item.active {
+    background: var(--bg-primary);
+    color: var(--accent-cyan);
+    border-left: 4px solid var(--accent-cyan);
+}
+
+.changelog-details {
+    flex-grow: 1;
+    padding: 20px 40px;
+    overflow-y: auto;
+}
+
+#changelog-title {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--accent-yellow);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.changelog-section { margin-bottom: 20px; }
+.changelog-section h4 { color: var(--accent-cyan); margin-bottom: 10px; font-family: 'Orbitron', sans-serif; font-size: 1em; }
+.changelog-section ul { list-style-type: none; padding-left: 10px; }
+.changelog-section li { margin-bottom: 5px; position: relative; padding-left: 15px; }
+.changelog-section li:before { content: ">"; position: absolute; left: 0; color: var(--text-secondary); }

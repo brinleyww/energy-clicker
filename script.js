@@ -44,67 +44,32 @@ document.addEventListener('DOMContentLoaded', () => {
             r19: { name: "Quasar Lensing", desc: "Quasar Siphon stardust output x2.", cost: 1e6, dependencies: ['r17'], effect: { type: 'generator', target: 'quasarSiphon', multiplier: 2 } },
         },
         prisms: {
-            // == TIER 1: BASICS ==
-            p1: { name: "Dimensional Tear", desc: "Unlock the ability to generate Prisms passively.", cost: 0, dependencies: [], effect: { type: 'base_prism_unlock' }, position: { x: 50, y: 300 } },
-            
-            // == TIER 2: BRANCHING ==
-            // Top: Research/Utility
+            p1: { name: "Dimensional Tear", desc: "Unlock the ability to generate Prisms passively (Base rate reduced).", cost: 0, dependencies: [], effect: { type: 'base_prism_unlock' }, position: { x: 50, y: 300 } },
             p2_top: { name: "Chronal Dilation", desc: "Stardust Research speed +25%.", cost: 2, dependencies: ['p1'], effect: { type: 'research_speed', value: 0.75 }, position: { x: 250, y: 150 } },
-            // Mid: Production
             p2_mid: { name: "Prism Refraction", desc: "Double the base production of Prisms.", cost: 5, dependencies: ['p1'], effect: { type: 'prism_multiplier', value: 2 }, position: { x: 250, y: 300 } },
-            // Bot: Reflection
             p2_bot: { name: "Energy Reflection", desc: "Boost ALL Energy production by 500% (x6).", cost: 8, dependencies: ['p1'], effect: { type: 'global_multiplier', target: 'energy', value: 6 }, position: { x: 250, y: 450 } },
-
-            // == TIER 3 ==
             p3_top: { name: "Forge Synchronization", desc: "Manual forging is 2x more effective.", cost: 10, dependencies: ['p2_top'], effect: { type: 'click_boost', value: 2 }, position: { x: 450, y: 100 } },
             p3_top_2: { name: "Focused Chronometry", desc: "Stardust Research speed +30%.", cost: 15, dependencies: ['p2_top'], effect: { type: 'research_speed', value: 0.7 }, position: { x: 450, y: 200 } },
-            
             p3_mid: { name: "Crystalline Focus", desc: "Triple the production of Prisms.", cost: 25, dependencies: ['p2_mid'], effect: { type: 'prism_multiplier', value: 3 }, position: { x: 450, y: 300 } },
-            
             p3_bot: { name: "Stardust Reflection", desc: "Boost ALL Stardust production by 500% (x6).", cost: 12, dependencies: ['p2_bot'], effect: { type: 'global_multiplier', target: 'stardust', value: 6 }, position: { x: 450, y: 450 } },
             p3_bot_2: { name: "Nebula Resonance", desc: "Nebula Gas boost is 10% more effective.", cost: 20, dependencies: ['p2_bot'], effect: { type: 'nebula_efficiency', value: 1.1 }, position: { x: 450, y: 550 } },
-
-            // == TIER 4 ==
             p4_top: { name: "Efficient Consumption", desc: "Consumables last 50% longer.", cost: 40, dependencies: ['p3_top_2'], effect: { type: 'consumable_duration', value: 1.5 }, position: { x: 650, y: 150 } },
-            
-            p4_mid_1: { name: "Energetic Resonance", desc: "Prism production boosted by Log10(Energy).", cost: 50, dependencies: ['p3_mid'], effect: { type: 'scaling_prism_prod', source: 'energy' }, position: { x: 650, y: 250 } },
-            p4_mid_2: { name: "Material Resonance", desc: "Prism production boosted by Log10(Stardust).", cost: 50, dependencies: ['p3_mid'], effect: { type: 'scaling_prism_prod', source: 'stardust' }, position: { x: 650, y: 350 } },
-            
+            p4_mid_1: { name: "Energetic Resonance", desc: "Prism production boosted by Log10(Energy) (Reduced effect).", cost: 50, dependencies: ['p3_mid'], effect: { type: 'scaling_prism_prod', source: 'energy' }, position: { x: 650, y: 250 } },
+            p4_mid_2: { name: "Material Resonance", desc: "Prism production boosted by Log10(Stardust) (Reduced effect).", cost: 50, dependencies: ['p3_mid'], effect: { type: 'scaling_prism_prod', source: 'stardust' }, position: { x: 650, y: 350 } },
             p4_bot: { name: "Cosmic Inflation", desc: "Gain +5% more Nebula Gas on reset.", cost: 60, dependencies: ['p3_bot_2'], effect: { type: 'prestige_boost', value: 1.05 }, position: { x: 650, y: 550 } },
-
-            // == TIER 5 ==
             p5_uni: { name: "Universal Echo", desc: "All Energy and Stardust production x50.", cost: 200, dependencies: ['p4_mid_1', 'p4_mid_2'], effect: { type: 'global_multiplier', target: 'all', value: 50 }, position: { x: 850, y: 300 } },
-            
-            // New Tier 5 Side
-            p5_side: { name: "Crystal Matrix", desc: "Energy production boosted by Log10(Stardust).", cost: 350, dependencies: ['p4_mid_2', 'p5_uni'], effect: { type: 'scaling_boost', source: 'stardust', target: 'energy', bonus: 0.1 }, position: { x: 850, y: 450 } },
-
-            // == TIER 6 ==
-            p6_top: { name: "Causal Manipulation", desc: "Research is instant (100% speed boost logic applied differently).", desc_long: "Research speed x10.", cost: 300, dependencies: ['p5_uni', 'p4_top'], effect: { type: 'research_speed', value: 0.1 }, position: { x: 1050, y: 150 } },
-            
+            p5_new_side: { name: "Architectural Shift", desc: "All Generators cost 20% less.", cost: 350, dependencies: ['p5_uni'], effect: { type: 'cost_reduction_global', value: 0.8 }, position: { x: 850, y: 450 } },
+            p6_top: { name: "Causal Manipulation", desc: "Research is instant.", desc_long: "Research speed x10.", cost: 300, dependencies: ['p5_uni', 'p4_top'], effect: { type: 'research_speed', value: 0.1 }, position: { x: 1050, y: 150 } },
             p6_mid: { name: "Prism Singularity", desc: "Prism production x5.", cost: 500, dependencies: ['p5_uni'], effect: { type: 'prism_multiplier', value: 5 }, position: { x: 1050, y: 300 } },
-            
             p6_bot: { name: "Event Horizon", desc: "Black Hole Evaporators are 2x stronger.", cost: 250, dependencies: ['p5_uni'], effect: { type: 'generator_boost', target: 'blackHoleEvaporator', value: 2 }, position: { x: 1050, y: 450 } },
-
-            // New Tier 6 Side
-            p6_ultra: { name: "Prism Saturation", desc: "Prism production is boosted by 1% per unspent Prism.", cost: 750, dependencies: ['p6_mid'], effect: { type: 'prism_saturation' }, position: { x: 1050, y: 600 } },
-
-            // == TIER 7 (Endgame) ==
+            p6_ultra: { name: "Prism Saturation", desc: "Prism production is boosted by 0.5% per unspent Prism.", cost: 750, dependencies: ['p6_mid'], effect: { type: 'prism_saturation' }, position: { x: 1050, y: 600 } },
+            p6_duo: { name: "Binary Systems", desc: "Probe and Drone production x20.", cost: 400, dependencies: ['p6_top'], effect: { type: 'generator_boost_multi', targets: ['probe', 'drone'], value: 20 }, position: { x: 1050, y: 50 } },
+            p6_struct: { name: "Mega-Engineering", desc: "Dyson Spheres and Star Forges are 5x stronger.", cost: 600, dependencies: ['p6_bot'], effect: { type: 'generator_boost_multi', targets: ['dysonSphere', 'starForge'], value: 5 }, position: { x: 1050, y: 550 } },
             p7_click: { name: "Hand of God", desc: "Clicking produces 10s of production.", cost: 1000, dependencies: ['p6_top'], effect: { type: 'click_time_warp', value: 10 }, position: { x: 1250, y: 100 } },
-            
-            p7_mid: { name: "Gemini Protocol", desc: "Passive Prism generation is boosted by Prism count.", cost: 2000, dependencies: ['p6_mid'], effect: { type: 'prism_self_boost' }, position: { x: 1250, y: 300 } },
-            
+            p7_mid: { name: "Gemini Protocol", desc: "Passive Prism generation is boosted by Prism count (Diminishing).", cost: 2000, dependencies: ['p6_mid'], effect: { type: 'prism_self_boost' }, position: { x: 1250, y: 300 } },
             p7_bot: { name: "Big Crunch", desc: "Nebula Gas gain on reset is squared.", cost: 5000, dependencies: ['p6_bot', 'p4_bot'], effect: { type: 'prestige_exponent', value: 2 }, position: { x: 1250, y: 550 } },
-            
-            // New Tier 7 Side
             p7_deep: { name: "Deep Space Echo", desc: "Boost Energy production based on total playtime.", cost: 3000, dependencies: ['p7_mid'], effect: { type: 'playtime_boost' }, position: { x: 1250, y: 420 } },
-
-            // == TIER 8 (Ultra) ==
-            p8_final: { name: "Ascension", desc: "Unlock a permanent 10x multiplier to everything per Tier owned.", cost: 10000, dependencies: ['p7_mid', 'p7_click', 'p7_bot'], effect: { type: 'tier_scaling_all' }, position: { x: 1500, y: 300 } },
-            
-            p8_void: { name: "Void Harness", desc: "Energy caps are removed (Soft cap pushed).", cost: 25000, dependencies: ['p8_final'], effect: { type: 'softcap_push' }, position: { x: 1700, y: 300 } },
-            
-            // New Tier 9 God Mode
-            p9_god: { name: "The Architect", desc: "Multiply ALL production by 1000x.", cost: 1e6, dependencies: ['p8_void'], effect: { type: 'global_multiplier', target: 'all', value: 1000 }, position: { x: 1950, y: 300 } }
+            p7_slow: { name: "Temporal Anchor", desc: "Prism production increases over time in the current run.", cost: 3500, dependencies: ['p7_mid'], effect: { type: 'time_prism_boost' }, position: { x: 1250, y: 200 } }
         },
         cosmicLaws: {
             cl1: { name: "Law of Attraction", desc: "All Energy production permanently increased by 25%.", cost: 1, effect: { type: 'global', target: 'energy', multiplier: 1.25 } },
@@ -137,66 +102,128 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         challenges: {
             ch1: {
-                name: "Energy Purity",
-                desc: "Reach 1e6 Energy without building any Stardust generators.",
-                requirement: (state) => state.bigBangCount >= 1,
-                reqDesc: "Requires 1 Big Bang.",
-                goal: (state) => state.energy >= 1e6,
-                rewardDesc: "Your two cheapest generator types have their production permanently multiplied by 10.",
-                effect: { type: 'challenge_boost_cheapest', count: 2, multiplier: 10 }
+                name: "Energy Purity", desc: "Reach 1e6 Energy without building any Stardust generators.", requirement: (state) => state.bigBangCount >= 1,
+                reqDesc: "Requires 1 Big Bang.", goal: (state) => state.energy >= 1e6, rewardDesc: "Your two cheapest generator types have their production permanently multiplied by 10.", effect: { type: 'challenge_boost_cheapest', count: 2, multiplier: 10 }
             },
             ch2: {
-                name: "Manual Labor",
-                desc: "Reach 1e7 Energy. Manual forging is 10x more powerful, but all generator production is multiplied by 0.2x.",
-                requirement: (state) => state.bigBangCount >= 2,
-                reqDesc: "Requires 2 Big Bangs.",
-                goal: (state) => state.energy >= 1e7,
-                rewardDesc: "Manual forging power is permanently multiplied by 25.",
-                effect: { type: 'challenge_boost_click', multiplier: 25 }
+                name: "Manual Labor", desc: "Reach 1e7 Energy. Manual forging is 10x more powerful, but all generator production is multiplied by 0.2x.", requirement: (state) => state.bigBangCount >= 2,
+                reqDesc: "Requires 2 Big Bangs.", goal: (state) => state.energy >= 1e7, rewardDesc: "Manual forging power is permanently multiplied by 25.", effect: { type: 'challenge_boost_click', multiplier: 25 }
             },
             ch3: {
-                name: "Stardust Rush",
-                desc: "Reach 5e3 Stardust. You cannot build Probes or Drone Swarms.",
-                requirement: (state) => state.bigBangCount >= 3,
-                reqDesc: "Requires 3 Big Bangs.",
-                goal: (state) => state.stardust >= 5e3,
-                rewardDesc: "All Stardust generator production is permanently multiplied by 5.",
-                effect: { type: 'challenge_boost_class', class: 'stardust', multiplier: 5 }
+                name: "Stardust Rush", desc: "Reach 5e3 Stardust. You cannot build Probes or Drone Swarms.", requirement: (state) => state.bigBangCount >= 3,
+                reqDesc: "Requires 3 Big Bangs.", goal: (state) => state.stardust >= 5e3, rewardDesc: "All Stardust generator production is permanently multiplied by 5.", effect: { type: 'challenge_boost_class', class: 'stardust', multiplier: 5 }
             },
             ch4: {
-                name: "Cosmic Sprint",
-                desc: "Reach 1e10 total Energy generated in this run within 10 minutes.",
-                requirement: (state) => state.bigBangCount >= 5,
-                reqDesc: "Requires 5 Big Bangs.",
-                goal: (state) => state.stats.totalEnergy >= 1e10 && (Date.now() - state.stats.runStartTime) <= 600000,
-                rewardDesc: "All Energy and Stardust production is permanently increased by 100% (x2).",
-                effect: { type: 'challenge_boost_global', multiplier: 2 }
+                name: "Cosmic Sprint", desc: "Reach 1e10 total Energy generated in this run within 10 minutes.", requirement: (state) => state.bigBangCount >= 5,
+                reqDesc: "Requires 5 Big Bangs.", goal: (state) => state.stats.totalEnergy >= 1e10 && (Date.now() - state.stats.runStartTime) <= 600000, rewardDesc: "All Energy and Stardust production is permanently increased by 100% (x2).", effect: { type: 'challenge_boost_global', multiplier: 2 }
             },
             ch5: {
-                name: "Singularity",
-                desc: "Reach 1e18 Energy using only a single type of generator.",
-                requirement: (state) => state.bigBangCount >= 8,
-                reqDesc: "Requires 8 Big Bangs.",
-                goal: (state) => state.energy >= 1e18,
-                rewardDesc: "All generator production is permanently boosted by 1.5% for each unspent Nebula Gas you have (compounding).",
-                effect: { type: 'challenge_boost_scaling_nebula' }
+                name: "Singularity", desc: "Reach 1e18 Energy using only a single type of generator.", requirement: (state) => state.bigBangCount >= 8,
+                reqDesc: "Requires 8 Big Bangs.", goal: (state) => state.energy >= 1e18, rewardDesc: "All generator production is permanently boosted by 1.5% for each unspent Nebula Gas you have (compounding).", effect: { type: 'challenge_boost_scaling_nebula' }
             }
         },
         tiers: {
-            1: { cost: 5e9, desc: "[OP] Research is 5x faster, Probes and Drones are 100x stronger, and you passively gain Stardust equal to 0.1% of your Energy/sec." },
-            2: { cost: 5e15, desc: "All generator production is multiplied by your current Tier number." },
-            3: { cost: 5e24, desc: "[OP] Generator milestone bonuses are squared, and all production is multiplied by your total Big Bangs (min 1x)." },
-            4: { cost: 5e36, desc: "Gain 200% more Nebula Gas from all future Big Bangs (x3 total)." },
-            5: { cost: 5e50, desc: "[OP] The production bonus from Nebula Gas is now exponential instead of linear (1.05^Gas)." },
-            6: { cost: 5e65, desc: "All generator costs are permanently reduced by 10% for each Tier you have." },
-            7: { cost: 5e80, desc: "All Stardust production is multiplied by 1.5 for each Tier you have (compounding)." },
-            8: { cost: 5e100, desc: "Manual forging power gains a bonus from your total Stardust (multiplied by Stardust^0.05)." },
-            9: { cost: 5e125, desc: "The effects of Cosmic Laws are 50% more powerful." },
-            10: { cost: 5e155, desc: "[OP] All final Energy and Stardust production is raised to the power of 1.02, and the effects of completed Challenges are squared." }
+            1: { cost: 5e9, desc: "[OP] UNLOCKS PRISMS. Research is 5x faster, Probes and Drones are 100x stronger, and you passively gain Stardust equal to 0.1% of your Energy/sec." },
+            2: { cost: 1e16, desc: "All generator production is multiplied by your current Tier number." },
+            3: { cost: 1e25, desc: "[OP] Generator milestone bonuses are squared, and all production is multiplied by your total Big Bangs (min 1x)." },
+            4: { cost: 1e38, desc: "Gain 200% more Nebula Gas from all future Big Bangs (x3 total)." },
+            5: { cost: 1e55, desc: "[OP] The production bonus from Nebula Gas is now exponential instead of linear (1.05^Gas)." },
+            6: { cost: 1e75, desc: "All generator costs are permanently reduced by 10% for each Tier you have." },
+            7: { cost: 1e100, desc: "All Stardust production is multiplied by 1.5 for each Tier you have (compounding)." },
+            8: { cost: 1e130, desc: "Manual forging power gains a bonus from your total Stardust (multiplied by Stardust^0.05)." },
+            9: { cost: 1e165, desc: "The effects of Cosmic Laws are 50% more powerful." },
+            10: { cost: 1e200, desc: "[OP] All final Energy and Stardust production is raised to the power of 1.02, and the effects of completed Challenges are squared." }
         },
-        milestones: [10, 25, 50, 100, 150, 200],
+        milestones: [10, 25, 50, 100, 200],
         milestoneMultiplier: 2
     };
+
+    const changelogData = [
+        {
+            title: "v3.7 - The Heat of the Forge", date: "01/14/2026",
+            changes: {
+                features: ["Added Forge Heat (Combo) system! Clicking continuously builds up a multiplier (up to 3x)."],
+                improvements: ["Dynamic color shifting for the combo bar.", "Added 'Exit Prism' button.", "Optimized particle effects."],
+                balance: ["Forge base click adjusted to account for combo system."]
+            }
+        },
+        {
+            title: "v3.5 - Prism Polish", date: "12/12/2025",
+            changes: {
+                improvements: ["Made the prism tree bigger.", "Improved Prism UI."],
+                bugs: ["Fixed click registration.", "Minor bug fixes (v3.5.1, v3.5.2)."]
+            }
+        },
+        {
+            title: "v3.4 - Quality of Life", date: "12/11/2025",
+            changes: {
+                features: ["Added Bulk Buy (Max/10x)."],
+                improvements: ["Added more non-scientific number displays for lategame.", "Better button feedback.", "Improved game feel and UX."]
+            }
+        },
+        {
+            title: "v3.3 - Tiering & Fixes", date: "11/18/2025",
+            changes: {
+                balance: ["Changes to tiering."],
+                bugs: ["General bugfixes."]
+            }
+        },
+        {
+            title: "v3.2 - Prism Enhancements", date: "11/12/2025",
+            changes: {
+                features: ["Prism tree enhancements."],
+                bugs: ["Major bug fixes (v3.2.1).", "Minor bug fixes (v3.2.2)."]
+            }
+        },
+        {
+            title: "v3.1 - Content Expansion", date: "11/06/2025",
+            changes: {
+                features: ["More generators added.", "New lategame consumable."],
+                balance: ["Consumables buffed."],
+                improvements: ["Added options button (v3.1.1)."]
+            }
+        },
+        {
+            title: "v3.0 - The Prism Update", date: "11/03/2025",
+            changes: {
+                features: ["Added Prisms system!"],
+                bugs: ["Bug fixes (v3.0.1)."]
+            }
+        },
+        {
+            title: "v2.2 - The Balance Flux", date: "10/30/2025",
+            changes: {
+                balance: ["Major balance changes attempted.", "Rollback to v2.1 due to breakage.", "Renamed boosters to consumables (v2.2.2)."],
+                bugs: ["Fixed game breaking bugs (v2.1)."]
+            }
+        },
+        {
+            title: "v2.0 - Challenges & Tiers", date: "10/27/2025",
+            changes: {
+                features: ["Added Challenges.", "Added Tiering system."]
+            }
+        },
+        {
+            title: "v1.3 - Boost UI", date: "10/23/2025",
+            changes: {
+                features: ["Added new boost menu layout.", "Added booster cooldowns."]
+            }
+        },
+        {
+            title: "v1.2 - Nebula Gas", date: "10/17/2025",
+            changes: {
+                features: ["Added Nebula Gas prestige currency."],
+                bugs: ["Fixed game breaking Nebula Gas bugs (v1.2.1)."]
+            }
+        },
+        {
+            title: "v1.0 - Launch", date: "10/06/2025",
+            changes: {
+                features: ["Initial Release."],
+                bugs: ["Minor bug fixes (v1.0.1 - v1.0.3)."]
+            }
+        }
+    ];
     // #endregion
 
     // #region GAME STATE & SETUP
@@ -209,63 +236,50 @@ document.addEventListener('DOMContentLoaded', () => {
         prisms: 0,
         bigBangCount: 0,
         currentTier: 0,
-        notation: 'standard', // 'standard' or 'scientific'
-        buyAmount: 1, // 1, 10, 'max'
+        notation: 'standard', 
+        settings: { showChangelog: true },
+        buyAmount: 1, 
         generators: {},
         research: {},
         purchasedPrisms: {},
         isPrismBoosting: false,
-        researchState: {
-            currentResearch: null,
-            researchStartTime: 0,
-            researchEndTime: 0
-        },
+        comboMultiplier: 1.0, 
+        researchState: { currentResearch: null, researchStartTime: 0, researchEndTime: 0 },
         cosmicLaws: {},
         consumableState: {},
         activeChallenge: null,
         completedChallenges: {},
-        tempBonuses: {
-            prodMultiplier: 1,
-            clickMultiplier: 1,
-            costMultiplier: 1,
-            isNextResearchFree: false,
-        },
-        stats: {
-            totalEnergy: 0,
-            runStartTime: Date.now()
-        },
+        tempBonuses: { prodMultiplier: 1, clickMultiplier: 1, costMultiplier: 1, isNextResearchFree: false },
+        stats: { totalEnergy: 0, runStartTime: Date.now() },
         lastUpdate: Date.now()
     };
     
+    // Runtime variables
+    let previousTab = 'generators';
+    let lastForgeClickTime = 0;
+
     function validateAndRepairGameState(state) {
-        if (!state || typeof state !== 'object') {
-            return JSON.parse(JSON.stringify(defaultGameState));
-        }
+        if (!state || typeof state !== 'object') return JSON.parse(JSON.stringify(defaultGameState));
         try {
             state.energy = (typeof state.energy === 'number' && isFinite(state.energy)) ? state.energy : 0;
             state.stardust = (typeof state.stardust === 'number' && isFinite(state.stardust)) ? state.stardust : 0;
             state.nebulaGas = (typeof state.nebulaGas === 'number' && isFinite(state.nebulaGas)) ? state.nebulaGas : 0;
             state.prisms = (typeof state.prisms === 'number' && isFinite(state.prisms)) ? state.prisms : 0;
-            state.bigBangCount = state.bigBangCount || 0;
-            state.currentTier = state.currentTier || 0;
-            state.notation = state.notation || 'standard';
-            state.buyAmount = state.buyAmount || 1;
-            state.generators = (typeof state.generators === 'object' && state.generators !== null) ? state.generators : {};
+            state.comboMultiplier = (typeof state.comboMultiplier === 'number') ? state.comboMultiplier : 1.0; 
+            state.generators = state.generators || {};
             state.research = state.research || {};
             state.purchasedPrisms = state.purchasedPrisms || {};
-            state.isPrismBoosting = false; 
             state.researchState = state.researchState || JSON.parse(JSON.stringify(defaultGameState.researchState));
             state.cosmicLaws = state.cosmicLaws || {};
             state.consumableState = state.consumableState || {};
             state.activeChallenge = state.activeChallenge || null;
             state.completedChallenges = state.completedChallenges || {};
             state.stats = state.stats || { totalEnergy: 0, runStartTime: Date.now() };
-            state.stats.totalEnergy = (typeof state.stats.totalEnergy === 'number' && isFinite(state.stats.totalEnergy)) ? state.stats.totalEnergy : state.energy;
             state.lastUpdate = state.lastUpdate || Date.now();
             state.tempBonuses = state.tempBonuses || JSON.parse(JSON.stringify(defaultGameState.tempBonuses));
             return state;
         } catch (error) {
-            console.error("Critical error repairing save. Reverting to default.", error);
+            console.error("Critical error repairing save.", error);
             return JSON.parse(JSON.stringify(defaultGameState));
         }
     }
@@ -273,13 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadGame() {
         const savedGame = localStorage.getItem('cosmicForgeSave');
         if (savedGame) {
-            try {
-                const parsedState = JSON.parse(savedGame);
-                return validateAndRepairGameState(parsedState);
-            } catch (error) {
-                console.error("Failed to parse save file. Starting a new game.", error);
-                return JSON.parse(JSON.stringify(defaultGameState));
-            }
+            try { return validateAndRepairGameState(JSON.parse(savedGame)); } catch (error) { return JSON.parse(JSON.stringify(defaultGameState)); }
         }
         return JSON.parse(JSON.stringify(defaultGameState));
     }
@@ -297,6 +305,12 @@ document.addEventListener('DOMContentLoaded', () => {
         prismsPs: document.getElementById('prisms-ps-display'),
         forgeClickValue: document.getElementById('forge-click-value'),
         forgeButton: document.getElementById('forge-button'),
+        // Combo UI
+        comboContainer: document.getElementById('combo-container'),
+        comboValue: document.getElementById('combo-value'),
+        comboDisplay: document.getElementById('combo-display'),
+        comboBarInner: document.getElementById('combo-bar-inner'),
+        
         logMessages: document.getElementById('log-messages'),
         generatorsContent: document.getElementById('generators-list'),
         researchTree: document.getElementById('research-tree'),
@@ -314,8 +328,15 @@ document.addEventListener('DOMContentLoaded', () => {
         researchProgressTimer: document.getElementById('research-progress-timer'),
         challengeIndicator: document.getElementById('challenge-indicator'),
         settingsButton: document.getElementById('settings-button'),
+        changelogButton: document.getElementById('changelog-button'),
         optionsModal: document.getElementById('options-modal'),
         optionsCloseButton: document.getElementById('options-close-button'),
+        changelogModal: document.getElementById('changelog-modal'),
+        changelogCloseButton: document.getElementById('changelog-close-button'),
+        changelogNav: document.getElementById('changelog-nav'),
+        changelogBody: document.getElementById('changelog-body'),
+        changelogTitle: document.getElementById('changelog-title'),
+        changelogToggle: document.getElementById('changelog-toggle'),
         notationToggleButton: document.getElementById('notation-toggle-button'),
         particlesContainer: document.getElementById('particles-container'),
         buyControls: document.getElementById('buy-controls'),
@@ -324,13 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // #endregion
 
     // #region CORE ENGINE
-
     function calculateProduction() {
         let prod = { energy: 0, stardust: 0, prisms: 0, click: 1 };
-        let multipliers = {
-            global: { energy: 1, stardust: 1 },
-            generators: {}
-        };
+        let multipliers = { global: { energy: 1, stardust: 1 }, generators: {} };
         const tier = gameState.currentTier;
 
         for (const id in gameData.generators) { multipliers.generators[id] = 1; }
@@ -340,305 +357,127 @@ document.addEventListener('DOMContentLoaded', () => {
             const prismTech = gameData.prisms[id];
             if (!prismTech) continue;
             const effect = prismTech.effect;
-            switch(effect.type) {
-                case 'global_multiplier':
-                    if (effect.target === 'energy' || effect.target === 'all') multipliers.global.energy *= effect.value;
-                    if (effect.target === 'stardust' || effect.target === 'all') multipliers.global.stardust *= effect.value;
-                    break;
-                case 'click_boost':
-                    prod.click *= effect.value;
-                    break;
-                case 'generator_boost':
-                     if (multipliers.generators[effect.target]) multipliers.generators[effect.target] *= effect.value;
-                     break;
-                case 'tier_scaling_all':
-                    const tierBoost = Math.max(1, Math.pow(10, gameState.currentTier));
-                    multipliers.global.energy *= tierBoost;
-                    multipliers.global.stardust *= tierBoost;
-                    break;
-                case 'scaling_boost':
-                    // Used for new upgrades (e.g. p5_side)
-                     const sourceValue = gameState[effect.source];
-                     if (sourceValue > 10) {
-                         // Simple scaling for production
-                         if (effect.target === 'energy') multipliers.global.energy *= (1 + Math.log10(sourceValue) * effect.bonus);
-                         if (effect.target === 'stardust') multipliers.global.stardust *= (1 + Math.log10(sourceValue) * effect.bonus);
-                     }
-                    break;
-                case 'playtime_boost':
-                    // p7_deep
-                    const minutesPlayed = (Date.now() - gameState.stats.runStartTime) / 60000;
-                    multipliers.global.energy *= (1 + (minutesPlayed * 0.1));
-                    break;
+            if(effect.type === 'global_multiplier') { 
+                if (effect.target === 'energy' || effect.target === 'all') multipliers.global.energy *= effect.value; 
+                if (effect.target === 'stardust' || effect.target === 'all') multipliers.global.stardust *= effect.value; 
             }
+            if(effect.type === 'click_boost') prod.click *= effect.value;
+            if(effect.type === 'generator_boost') if (multipliers.generators[effect.target]) multipliers.generators[effect.target] *= effect.value;
+            if(effect.type === 'generator_boost_multi') effect.targets.forEach(t => { if(multipliers.generators[t]) multipliers.generators[t] *= effect.value; });
+            if(effect.type === 'scaling_boost') { 
+                const sourceValue = gameState[effect.source]; 
+                if (sourceValue > 10) { 
+                    if (effect.target === 'energy') multipliers.global.energy *= (1 + Math.log10(sourceValue) * effect.bonus); 
+                    if (effect.target === 'stardust') multipliers.global.stardust *= (1 + Math.log10(sourceValue) * effect.bonus); 
+                } 
+            }
+            if(effect.type === 'playtime_boost') { const minutesPlayed = (Date.now() - gameState.stats.runStartTime) / 60000; multipliers.global.energy *= (1 + (minutesPlayed * 0.1)); }
         }
 
-        // --- Tier Effects ---
-        if (tier >= 1) {
-            multipliers.generators.probe *= 100;
-            multipliers.generators.drone *= 100;
-        }
-        if (tier >= 2) {
-            const tierMultiplier = Math.max(1, tier);
-            multipliers.global.energy *= tierMultiplier;
-            multipliers.global.stardust *= tierMultiplier;
-        }
-        if (tier >= 3) {
-            const bigBangMultiplier = Math.max(1, gameState.bigBangCount);
-            multipliers.global.energy *= bigBangMultiplier;
-            multipliers.global.stardust *= bigBangMultiplier;
-        }
-        if (tier >= 7) {
-            multipliers.global.stardust *= Math.pow(1.5, tier);
-        }
+        if (tier >= 1) { multipliers.generators.probe *= 100; multipliers.generators.drone *= 100; }
+        if (tier >= 2) { const tierMultiplier = Math.max(1, tier); multipliers.global.energy *= tierMultiplier; multipliers.global.stardust *= tierMultiplier; }
+        if (tier >= 3) { const bigBangMultiplier = Math.max(1, gameState.bigBangCount); multipliers.global.energy *= bigBangMultiplier; multipliers.global.stardust *= bigBangMultiplier; }
+        if (tier >= 7) { multipliers.global.stardust *= Math.pow(1.5, tier); }
 
-        // --- ACTIVE Challenge Effects ---
-        if (gameState.activeChallenge === 'ch2') {
-            prod.click *= 10;
-            multipliers.global.energy *= 0.2;
-            multipliers.global.stardust *= 0.2;
-        }
+        if (gameState.activeChallenge === 'ch2') { prod.click *= 10; multipliers.global.energy *= 0.2; multipliers.global.stardust *= 0.2; }
 
-        // --- PERMANENT Challenge Reward Effects ---
         for (const id in gameState.completedChallenges) {
-            const challenge = gameData.challenges[id];
-            const effect = challenge.effect;
-            let effectMultiplier = effect.multiplier;
-            if (tier >= 10) {
-                 if (effectMultiplier) effectMultiplier = Math.pow(effectMultiplier, 2);
-            }
-
-            switch(effect.type) {
-                case 'challenge_boost_cheapest':
-                    const sortedGens = Object.keys(gameData.generators).sort((a,b) => gameData.generators[a].baseCost - gameData.generators[b].baseCost);
-                    for(let i = 0; i < effect.count; i++) {
-                        if (sortedGens[i]) {
-                           multipliers.generators[sortedGens[i]] *= effect.multiplier;
-                        }
-                    }
-                    break;
-                case 'challenge_boost_click':
-                    prod.click *= effectMultiplier;
-                    break;
-                case 'challenge_boost_class':
-                    for(const genId in gameData.generators) {
-                        if (gameData.generators[genId].resource === effect.class) {
-                            multipliers.generators[genId] *= effectMultiplier;
-                        }
-                    }
-                    break;
-                case 'challenge_boost_global':
-                    multipliers.global.energy *= effectMultiplier;
-                    multipliers.global.stardust *= effectMultiplier;
-                    break;
-                case 'challenge_boost_scaling_nebula':
-                    let nebulaBase = 1.015;
-                    if (tier >= 10) nebulaBase = Math.pow(nebulaBase, 2); 
-                    const nebulaPower = Math.pow(nebulaBase, gameState.nebulaGas);
-                    multipliers.global.energy *= nebulaPower;
-                    multipliers.global.stardust *= nebulaPower;
-                    break;
-            }
+            const challenge = gameData.challenges[id]; const effect = challenge.effect; let effectMultiplier = effect.multiplier;
+            if (tier >= 10 && effectMultiplier) effectMultiplier = Math.pow(effectMultiplier, 2);
+            if(effect.type === 'challenge_boost_cheapest') { const sortedGens = Object.keys(gameData.generators).sort((a,b) => gameData.generators[a].baseCost - gameData.generators[b].baseCost); for(let i = 0; i < effect.count; i++) if (sortedGens[i]) multipliers.generators[sortedGens[i]] *= effect.multiplier; }
+            if(effect.type === 'challenge_boost_click') prod.click *= effectMultiplier;
+            if(effect.type === 'challenge_boost_class') for(const genId in gameData.generators) if (gameData.generators[genId].resource === effect.class) multipliers.generators[genId] *= effectMultiplier;
+            if(effect.type === 'challenge_boost_global') { multipliers.global.energy *= effectMultiplier; multipliers.global.stardust *= effectMultiplier; }
+            if(effect.type === 'challenge_boost_scaling_nebula') { let nebulaBase = 1.015; if (tier >= 10) nebulaBase = Math.pow(nebulaBase, 2); multipliers.global.energy *= Math.pow(nebulaBase, gameState.nebulaGas); multipliers.global.stardust *= Math.pow(nebulaBase, gameState.nebulaGas); }
         }
 
-        // --- Nebula Gas Bonus ---
-        let nebulaEfficiency = 1;
-         if (gameState.purchasedPrisms['p3_bot_2']) {
-             nebulaEfficiency = 1.1; // 10% more effective
-         }
-
-        let nebulaBoost;
-        if (tier >= 5) {
-            nebulaBoost = Math.pow(1.05 * nebulaEfficiency, gameState.nebulaGas);
-        } else {
-            nebulaBoost = 1 + (gameState.nebulaGas * 0.01 * nebulaEfficiency);
-        }
-        multipliers.global.energy *= nebulaBoost;
-        multipliers.global.stardust *= nebulaBoost;
-
+        let nebulaEfficiency = 1; if (gameState.purchasedPrisms['p3_bot_2']) nebulaEfficiency = 1.1;
+        let nebulaBoost; if (tier >= 5) { nebulaBoost = Math.pow(1.05 * nebulaEfficiency, gameState.nebulaGas); } else { nebulaBoost = 1 + (gameState.nebulaGas * 0.01 * nebulaEfficiency); }
+        multipliers.global.energy *= nebulaBoost; multipliers.global.stardust *= nebulaBoost;
 
         const lawEffectiveness = (tier >= 9) ? 1.5 : 1;
         const purchasedLawsCount = Object.keys(gameState.cosmicLaws).length;
+        if (gameState.cosmicLaws['cl1']) multipliers.global.energy *= (1 + (gameData.cosmicLaws.cl1.effect.multiplier - 1) * lawEffectiveness);
+        if (gameState.cosmicLaws['cl2']) multipliers.global.stardust *= (1 + (gameData.cosmicLaws.cl2.effect.multiplier - 1) * lawEffectiveness);
+        if (gameState.cosmicLaws['cl8']) { const voidBoost = 1 + (gameState.nebulaGas * gameData.cosmicLaws.cl8.effect.bonus * lawEffectiveness); multipliers.global.energy *= voidBoost; multipliers.global.stardust *= voidBoost; }
+        if (gameState.cosmicLaws['cl15']) { multipliers.generators.blackHoleEvaporator *= (1 + (100 - 1) * lawEffectiveness); multipliers.generators.quasarSiphon *= (1 + (100 - 1) * lawEffectiveness); }
+        if (gameState.cosmicLaws['cl5'] && purchasedLawsCount > 0) multipliers.global.stardust *= 1 + (purchasedLawsCount * gameData.cosmicLaws.cl5.effect.bonus * lawEffectiveness);
 
-        if (gameState.cosmicLaws['cl1']) { multipliers.global.energy *= (1 + (gameData.cosmicLaws.cl1.effect.multiplier - 1) * lawEffectiveness); }
-        if (gameState.cosmicLaws['cl2']) { multipliers.global.stardust *= (1 + (gameData.cosmicLaws.cl2.effect.multiplier - 1) * lawEffectiveness); }
-
-        if (gameState.cosmicLaws['cl8']) {
-            const voidBoost = 1 + (gameState.nebulaGas * gameData.cosmicLaws.cl8.effect.bonus * lawEffectiveness);
-            multipliers.global.energy *= voidBoost;
-            multipliers.global.stardust *= voidBoost;
-        }
+        for (const id in gameState.research) { const tech = gameData.research[id]; if (tech.effect.type === 'generator') multipliers.generators[tech.effect.target] *= tech.effect.multiplier; if (tech.effect.type === 'click' && tech.effect.multiplier) prod.click *= tech.effect.multiplier; if (tech.effect.type === 'global') multipliers.global[tech.effect.target] *= tech.effect.multiplier; if (tech.effect.type === 'class_boost' && tech.effect.class === 'stardust') { multipliers.generators.factory *= 1.25; multipliers.generators.nebulaHarvester *= 1.25; multipliers.generators.quasarSiphon *= 1.25; multipliers.generators.galacticExchange *= 1.25; multipliers.generators.whiteHoleFountain *= 1.25; } }
         
-        if (gameState.cosmicLaws['cl15']) {
-            multipliers.generators.blackHoleEvaporator *= (1 + (100 - 1) * lawEffectiveness);
-            multipliers.generators.quasarSiphon *= (1 + (100 - 1) * lawEffectiveness);
-        }
-
-        if (gameState.cosmicLaws['cl5'] && purchasedLawsCount > 0) {
-            multipliers.global.stardust *= 1 + (purchasedLawsCount * gameData.cosmicLaws.cl5.effect.bonus * lawEffectiveness);
-        }
-        
-        for (const id in gameState.research) {
-            const tech = gameData.research[id];
-            if (tech.effect.type === 'generator') {
-                multipliers.generators[tech.effect.target] *= tech.effect.multiplier;
-            } else if (tech.effect.type === 'click' && tech.effect.multiplier) {
-                prod.click *= tech.effect.multiplier;
-            } else if (tech.effect.type === 'global') {
-                multipliers.global[tech.effect.target] *= tech.effect.multiplier;
-            } else if (tech.effect.type === 'class_boost' && tech.effect.class === 'stardust') {
-                multipliers.generators.factory *= 1.25;
-                multipliers.generators.nebulaHarvester *= 1.25;
-                multipliers.generators.quasarSiphon *= 1.25;
-                multipliers.generators.galacticExchange *= 1.25; 
-                multipliers.generators.whiteHoleFountain *= 1.25;
-            }
-        }
-
         const synergyMultiplier = gameState.cosmicLaws['cl12'] ? (1 + (gameData.cosmicLaws.cl12.effect.amount - 1) * lawEffectiveness) : 1;
-        
-        if (gameState.research['r6']) {
-            const factoryCount = gameState.generators.factory?.count || 0;
-            multipliers.generators.drone *= 1 + (factoryCount * 0.01 * synergyMultiplier);
-        }
-        if (gameState.research['r16']) {
-            const droneCount = gameState.generators.drone?.count || 0;
-            multipliers.generators.starForge *= 1 + (droneCount * 0.005 * synergyMultiplier);
-        }
-        if (gameState.research['r14']) {
-            const uniqueTypes = Object.keys(gameState.generators).filter(id => gameState.generators[id] && gameState.generators[id].count > 0).length;
-            const bonus = 1 + (uniqueTypes * 0.10 * synergyMultiplier);
-            multipliers.generators.probe *= bonus;
-            multipliers.generators.drone *= bonus;
-        }
+        if (gameState.research['r6']) multipliers.generators.drone *= 1 + ((gameState.generators.factory?.count || 0) * 0.01 * synergyMultiplier);
+        if (gameState.research['r16']) multipliers.generators.starForge *= 1 + ((gameState.generators.drone?.count || 0) * 0.005 * synergyMultiplier);
+        if (gameState.research['r14']) { const uniqueTypes = Object.keys(gameState.generators).filter(id => gameState.generators[id] && gameState.generators[id].count > 0).length; const bonus = 1 + (uniqueTypes * 0.10 * synergyMultiplier); multipliers.generators.probe *= bonus; multipliers.generators.drone *= bonus; }
 
-        // Calculate base generator production
-        for (const id in gameData.generators) {
-            const generator = gameData.generators[id];
-            const state = gameState.generators[id] || { count: 0 };
-            
-            let currentMilestoneBonus = gameState.cosmicLaws['cl7'] ? (1 + (gameData.cosmicLaws.cl7.effect.amount - 1) * lawEffectiveness) : gameData.milestoneMultiplier;
-            if (tier >= 3) {
-                currentMilestoneBonus = Math.pow(currentMilestoneBonus, 2);
-            }
-            let milestoneMultiplier = 1;
-            gameData.milestones.forEach(m => {
-                if (state.count >= m) { milestoneMultiplier *= currentMilestoneBonus; }
-            });
-            
-            const totalProd = state.count * generator.baseProd * multipliers.generators[id] * milestoneMultiplier;
-            prod[generator.resource] += totalProd;
+        for (const id in gameData.generators) { const generator = gameData.generators[id]; const state = gameState.generators[id] || { count: 0 }; let currentMilestoneBonus = gameState.cosmicLaws['cl7'] ? (1 + (gameData.cosmicLaws.cl7.effect.amount - 1) * lawEffectiveness) : gameData.milestoneMultiplier; if (tier >= 3) currentMilestoneBonus = Math.pow(currentMilestoneBonus, 2); let milestoneMultiplier = 1; gameData.milestones.forEach(m => { if (state.count >= m) milestoneMultiplier *= currentMilestoneBonus; }); const totalProd = state.count * generator.baseProd * multipliers.generators[id] * milestoneMultiplier; prod[generator.resource] += totalProd; }
+        
+        if (gameState.purchasedPrisms['p1']) { 
+            let prismBaseProd = 1 / 60; // Slower gain rate
+            let prismMultiplier = 1; 
+            for (const id in gameState.purchasedPrisms) { 
+                const prismTech = gameData.prisms[id]; if (!prismTech) continue; 
+                if (prismTech.effect.type === 'prism_multiplier') prismMultiplier *= prismTech.effect.value; 
+                if (prismTech.effect.type === 'scaling_prism_prod') { const sourceValue = gameState[prismTech.effect.source]; if (sourceValue > 10) prismMultiplier *= (1 + Math.log10(sourceValue) * 0.1); }
+                if (prismTech.effect.type === 'prism_self_boost') prismMultiplier *= (1 + (Math.log10(Math.max(1, gameState.prisms)) * 0.05));
+                if (prismTech.effect.type === 'prism_saturation') prismMultiplier *= (1 + (gameState.prisms * 0.005)); 
+                if (prismTech.effect.type === 'time_prism_boost') { const hrs = (Date.now() - gameState.stats.runStartTime) / 3600000; prismMultiplier *= (1 + hrs); }
+            } 
+            prod.prisms = prismBaseProd * prismMultiplier; 
+            if (gameState.isPrismBoosting) prod.prisms *= 9; 
         }
         
-        // --- Calculate Prism Production ---
-        if (gameState.purchasedPrisms['p1']) {
-            let prismBaseProd = 1 / 30; // 1 every 30 seconds
-            let prismMultiplier = 1;
-            for (const id in gameState.purchasedPrisms) {
-                const prismTech = gameData.prisms[id];
-                if (!prismTech) continue;
-                const effect = prismTech.effect;
-                if (effect.type === 'prism_multiplier') {
-                    prismMultiplier *= effect.value;
-                }
-                 if (effect.type === 'scaling_prism_prod') {
-                    const sourceValue = gameState[effect.source];
-                    if (sourceValue > 10) {
-                         const scalingBonus = 1 + Math.log10(sourceValue) * 0.25; 
-                         prismMultiplier *= scalingBonus;
-                    }
-                }
-                if (effect.type === 'prism_self_boost') {
-                    prismMultiplier *= (1 + (gameState.prisms * 0.01));
-                }
-                if (effect.type === 'prism_saturation') {
-                    // New p6_ultra effect
-                    prismMultiplier *= (1 + (gameState.prisms * 0.01)); 
-                }
-            }
-            prod.prisms = prismBaseProd * prismMultiplier;
-            if (gameState.isPrismBoosting) {
-                prod.prisms *= 9; // 3x gain, 3x speed
-            }
-        }
+        prod.energy *= multipliers.global.energy * gameState.tempBonuses.prodMultiplier; prod.stardust *= multipliers.global.stardust * gameState.tempBonuses.prodMultiplier;
         
-
-        // Apply global bonuses
-        prod.energy *= multipliers.global.energy * gameState.tempBonuses.prodMultiplier;
-        prod.stardust *= multipliers.global.stardust * gameState.tempBonuses.prodMultiplier;
-
-        if (gameState.research['r7']) {
-            const ordersOfMagnitude = Math.max(0, Math.floor(Math.log10(gameState.stardust)));
-            if (isFinite(ordersOfMagnitude)) {
-                 prod.energy *= 1 + (ordersOfMagnitude * 0.05);
-            }
-        }
-        if (tier >= 1) { // Tier 1 passive stardust
-            prod.stardust += prod.energy * 0.001;
-        }
-
+        if (gameState.research['r7']) { const ordersOfMagnitude = Math.max(0, Math.floor(Math.log10(gameState.stardust))); if (isFinite(ordersOfMagnitude)) prod.energy *= 1 + (ordersOfMagnitude * 0.05); }
+        if (tier >= 1) prod.stardust += prod.energy * 0.001;
         prod.click *= gameState.tempBonuses.clickMultiplier;
-
-        if (gameState.research['r9']) {
-             const droneCount = gameState.generators.drone?.count || 0;
-             prod.click += droneCount * 0.2;
-        }
-        if (gameState.research['r4']) {
-            prod.click += prod.energy * 0.05;
-        }
-        if (tier >= 8 && gameState.stardust > 1) {
-            prod.click *= Math.pow(gameState.stardust, 0.05);
-        }
-        if (gameState.cosmicLaws['cl3']) {
-            prod.click += gameState.nebulaGas;
-        }
+        if (gameState.research['r9']) prod.click += (gameState.generators.drone?.count || 0) * 0.2;
+        if (gameState.research['r4']) prod.click += prod.energy * 0.05;
+        if (tier >= 8 && gameState.stardust > 1) prod.click *= Math.pow(gameState.stardust, 0.05);
+        if (gameState.cosmicLaws['cl3']) prod.click += gameState.nebulaGas;
+        if(gameState.purchasedPrisms['p7_click']) prod.click += prod.energy * 10;
         
-        // Special Click effect
-        if(gameState.purchasedPrisms['p7_click']) {
-            // Hand of God: Click = 10s of production
-            prod.click += prod.energy * 10;
-        }
+        // --- Apply Combo Multiplier ---
+        prod.click *= gameState.comboMultiplier;
 
-        if (tier >= 10) {
-            if (prod.energy > 1) prod.energy = Math.pow(prod.energy, 1.02);
-            if (prod.stardust > 1) prod.stardust = Math.pow(prod.stardust, 1.02);
-        }
-
+        if (tier >= 10) { if (prod.energy > 1) prod.energy = Math.pow(prod.energy, 1.02); if (prod.stardust > 1) prod.stardust = Math.pow(prod.stardust, 1.02); }
         return prod;
     }
 
     function gameTick() {
         const now = Date.now();
         const delta = (now - gameState.lastUpdate) / 1000;
-
-        if (gameState.researchState.currentResearch && now >= gameState.researchState.researchEndTime) {
-            completeResearch();
-        }
-
+        
+        // Research logic
+        if (gameState.researchState.currentResearch && now >= gameState.researchState.researchEndTime) completeResearch();
+        
+        // Challenge Logic
         if (gameState.activeChallenge) {
-            if (gameData.challenges[gameState.activeChallenge].goal(gameState)) {
-                completeChallenge();
-            }
-            if (gameState.activeChallenge === 'ch4' && (now - gameState.stats.runStartTime) > 600000) {
-                addLogMessage(`Challenge Failed: Cosmic Sprint time limit exceeded.`, 'danger');
-                abandonChallenge(false);
+            if (gameData.challenges[gameState.activeChallenge].goal(gameState)) completeChallenge();
+            if (gameState.activeChallenge === 'ch4' && (now - gameState.stats.runStartTime) > 600000) { addLogMessage(`Challenge Failed: Cosmic Sprint time limit exceeded.`, 'danger'); abandonChallenge(false); }
+        }
+
+        // --- COMBO DECAY LOGIC ---
+        // If more than 0.5s has passed since last click
+        if (now - lastForgeClickTime > 500) {
+            // Fast decay: Lose 2x multiplier per second
+            if (gameState.comboMultiplier > 1) {
+                gameState.comboMultiplier = Math.max(1, gameState.comboMultiplier - (delta * 1.5));
+                if (gameState.comboMultiplier === 1) dom.comboContainer.classList.remove('active');
             }
         }
+        // -------------------------
 
         const production = calculateProduction();
-        gameState.energy += production.energy * delta;
-        gameState.stats.totalEnergy += production.energy * delta;
-        gameState.stardust += production.stardust * delta;
-        gameState.prisms += production.prisms * delta;
+        gameState.energy += production.energy * delta; gameState.stats.totalEnergy += production.energy * delta;
+        gameState.stardust += production.stardust * delta; gameState.prisms += production.prisms * delta;
         gameState.lastUpdate = now;
-
         updateUI(production);
     }
-
     // #endregion
 
     // #region UI RENDERING
-
     function updateUI(production) {
         dom.energy.textContent = formatNumber(gameState.energy);
         dom.energyPs.textContent = `(+${formatNumber(production.energy)}/s)`;
@@ -650,42 +489,67 @@ document.addEventListener('DOMContentLoaded', () => {
         dom.prismsPs.textContent = `(+${formatNumber(production.prisms)}/s)`;
         dom.forgeClickValue.textContent = `+${formatNumber(production.click)} Energy`;
 
-        // Update Generator Buttons without rebuilding DOM (Fixes Click Issue)
+        // --- UPDATE COMBO UI ---
+        const combo = gameState.comboMultiplier;
+        dom.comboValue.textContent = combo.toFixed(2);
+        
+        // Calculate percentage (1.0 to 3.0 range maps to 0% to 100%)
+        const percentage = Math.min(100, (combo - 1) / 2 * 100);
+        dom.comboBarInner.style.width = `${percentage}%`;
+        
+        // Color shifting
+        let barColor = 'var(--accent-cyan)';
+        if (combo > 2.8) {
+             barColor = 'var(--accent-magenta)';
+             dom.comboDisplay.classList.add('maxed');
+        } else if (combo > 2.0) {
+             barColor = 'var(--accent-yellow)';
+             dom.comboDisplay.classList.remove('maxed');
+        } else {
+             dom.comboDisplay.classList.remove('maxed');
+        }
+        dom.comboBarInner.style.background = `linear-gradient(90deg, ${barColor}, ${barColor})`;
+        dom.comboBarInner.style.boxShadow = `0 0 10px ${barColor}`;
+        // -----------------------
+
+        // Update Generator Buttons
         for (const id in gameData.generators) {
             const btn = document.querySelector(`#${id} .buy-button`);
             if (btn) {
                 const state = gameState.generators[id] || { count: 0 };
                 const calc = calculateBulkCost(id, state.count, gameState.buyAmount);
                 const affordable = gameState.energy >= calc.cost;
-                
                 if (btn.disabled !== !affordable) btn.disabled = !affordable;
                 
-                let btnText = gameState.buyAmount === 'max' ? `Max (${calc.amount})` : `Buy ${calc.amount}`;
-                // Only update innerHTML if text/cost changes to prevent layout thrashing
-                const newHTML = `${btnText}<br><span class="item-cost">${formatNumber(calc.cost)}</span> Energy`;
-                if(btn.innerHTML !== newHTML) btn.innerHTML = newHTML;
+                // Safe cost check
+                const costDisplay = isNaN(calc.cost) ? "0" : formatNumber(calc.cost);
                 
-                // Update count
+                let btnText = "";
+                if (gameState.buyAmount === 'max') {
+                    btnText = `Max (+${calc.amount})`;
+                } else if (gameState.buyAmount === 'next') {
+                     // Check if maxed on milestones
+                     const isMaxed = state.count >= gameData.milestones[gameData.milestones.length - 1];
+                     btnText = isMaxed ? `Max (+${calc.amount})` : `Next (+${calc.amount})`;
+                } else {
+                    btnText = `Buy ${calc.amount}`;
+                }
+
+                const newHTML = `${btnText}<br><span class="item-cost">${costDisplay}</span> Energy`;
+                
+                if(btn.innerHTML !== newHTML) btn.innerHTML = newHTML;
                 const countDiv = document.querySelector(`#${id} .item-count`);
                 if(countDiv && countDiv.textContent != state.count) countDiv.textContent = state.count;
             }
         }
         
-        // Update Research Buttons
         updateResearchUI();
-        
-        // Update Prism Tree Availability
         updatePrismTreeUI();
-
-        // Update Consumables
         updateConsumablesUI();
-
         updateResearchProgressUI();
         updateChallengeIndicator();
-        
-        // Only update these if visible/relevant
         if(document.getElementById('challenges-content').classList.contains('active')) renderChallenges(); 
-        if(document.getElementById('cosmic-laws-container').offsetParent) renderCosmicLaws(); // Simple visibility check
+        if(document.getElementById('cosmic-laws-container').offsetParent) renderCosmicLaws();
 
         dom.bigBangCount.textContent = gameState.bigBangCount;
         const prestigeGain = calculatePrestigeGain();
@@ -702,1089 +566,282 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTiers();
         renderCosmicLaws();
         updateBuyControls();
+        renderChangelogNav();
+        checkFeatureUnlocks(); 
     }
-
-    function initializeGenerators() {
-        let html = '';
-        const sortedGenerators = Object.keys(gameData.generators).sort((a, b) => gameData.generators[a].baseCost - gameData.generators[b].baseCost);
-
-        for (const id of sortedGenerators) {
-            const gen = gameData.generators[id];
-            const state = gameState.generators[id] || { count: 0 };
-            
-            let milestoneHTML = '<div class="milestone-bar">';
-            gameData.milestones.forEach(m => {
-                milestoneHTML += `<div class="milestone-pip ${state.count >= m ? 'unlocked' : ''}"></div>`;
-            });
-            milestoneHTML += '</div>';
-
-            html += `
-                <div class="item" id="${id}">
-                    <div class="item-info">
-                        <div class="item-name">${gen.name}</div>
-                        <div class="item-desc">${gen.desc}</div>
-                        <div class="item-prod">Produces +${formatNumber(gen.baseProd)} ${gen.resource}/s each.</div>
-                        ${milestoneHTML}
-                    </div>
-                    <div class="item-actions">
-                        <div class="item-count">${state.count}</div>
-                        <button class="buy-button" data-id="${id}">Loading...</button>
-                    </div>
-                </div>
-            `;
-        }
-        dom.generatorsContent.innerHTML = html;
-    }
-    
-    function updateBuyControls() {
-        document.querySelectorAll('.buy-amt-btn').forEach(btn => {
-            if (btn.dataset.amt == gameState.buyAmount) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-    }
-
-    function initializeResearchTree() {
-        // Just build the structure, visual state handled in updateResearchUI
-        let html = '';
-        const sortedResearch = Object.keys(gameData.research).sort((a,b) => getResearchCost(a) - getResearchCost(b));
-
-        for (const id of sortedResearch) {
-            const tech = gameData.research[id];
-            html += `
-                <div class="tech" id="tech-${id}">
-                    <div>${tech.name}</div>
-                    <small>${tech.desc}</small>
-                    <div class="tech-time"></div>
-                    <button class="buy-button tech-button" data-id="${id}"></button>
-                </div>
-            `;
-        }
-        dom.researchTree.innerHTML = html;
-        updateResearchUI(); // Initial state set
-    }
-
-    function updateResearchUI() {
-        const sortedResearch = Object.keys(gameData.research).sort((a,b) => getResearchCost(a) - getResearchCost(b));
-        const isResearching = gameState.researchState.currentResearch !== null;
-
-        for (const id of sortedResearch) {
-            const el = document.getElementById(`tech-${id}`);
-            if(!el) continue;
-
-            const tech = gameData.research[id];
-            const cost = getResearchCost(id);
-            const duration = calculateResearchTime(id) / 1000;
-            const depsMet = tech.dependencies.every(dep => gameState.research[dep]);
-            const isPurchased = !!gameState.research[id];
-
-            // Handle visibility
-            if (isPurchased) {
-                el.className = "tech purchased";
-                el.querySelector('.buy-button').textContent = "Purchased";
-                el.querySelector('.buy-button').disabled = true;
-                el.style.display = 'flex';
-            } else if (depsMet) {
-                el.className = "tech available";
-                el.style.display = 'flex';
-                const btn = el.querySelector('.buy-button');
-                
-                if (isResearching) {
-                    if (gameState.researchState.currentResearch === id) {
-                        btn.textContent = "Researching...";
-                        btn.disabled = true;
-                    } else {
-                        btn.textContent = "Queue Blocked";
-                        btn.disabled = true;
-                    }
-                } else {
-                    const affordable = gameState.stardust >= cost;
-                    btn.textContent = `Cost: ${formatNumber(cost)} SD`;
-                    btn.disabled = !affordable;
-                }
-                el.querySelector('.tech-time').textContent = `Time: ${duration.toFixed(1)}s`;
-            } else {
-                el.style.display = 'none'; // Hide if deps not met
-            }
-        }
-    }
-
-    function initializePrismTree() {
-        // Create canvas wrap
-        dom.prismTreeContainer.innerHTML = '<div id="prism-canvas"></div>';
-        const canvas = document.getElementById('prism-canvas');
-        
-        let html = '';
-        let connectorsHtml = '';
-    
-        // Connectors
-        for (const id in gameData.prisms) {
-            const tech = gameData.prisms[id];
-            for (const depId of tech.dependencies) {
-                const depTech = gameData.prisms[depId];
-                if (depTech) {
-                    const startPos = depTech.position;
-                    const endPos = tech.position;
-                    
-                    const nodeWidth = 140; 
-                    const nodeHeight = 90;
-
-                    const x1 = startPos.x + nodeWidth / 2;
-                    const y1 = startPos.y + nodeHeight / 2;
-                    const x2 = endPos.x + nodeWidth / 2;
-                    const y2 = endPos.y + nodeHeight / 2;
-    
-                    const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-                    const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
-                    
-                    connectorsHtml += `
-                        <div class="prism-connector" id="conn-${depId}-${id}" style="
-                            width: ${length}px;
-                            left: ${x1}px;
-                            top: ${y1}px;
-                            transform: rotate(${angle}deg);
-                        "></div>
-                    `;
-                }
-            }
-        }
-    
-        // Nodes
-        for (const id in gameData.prisms) {
-            const tech = gameData.prisms[id];
-            html += `
-                <div class="prism-tech" id="prism-${id}" data-id="${id}" style="left: ${tech.position.x}px; top: ${tech.position.y}px;">
-                    <div class="prism-tech-name">${tech.name}</div>
-                    <div class="prism-tech-desc">${tech.desc_long || tech.desc}</div>
-                    <div class="prism-tech-cost"></div>
-                </div>
-            `;
-        }
-        
-        canvas.innerHTML = connectorsHtml + html;
-    }
-
-    function updatePrismTreeUI() {
-        for (const id in gameData.prisms) {
-            const tech = gameData.prisms[id];
-            const el = document.getElementById(`prism-${id}`);
-            if(!el) continue;
-
-            const isPurchased = !!gameState.purchasedPrisms[id];
-            const depsMet = tech.dependencies.every(dep => gameState.purchasedPrisms[dep]);
-            const canAfford = gameState.prisms >= tech.cost;
-            const costDiv = el.querySelector('.prism-tech-cost');
-
-            el.className = 'prism-tech'; // Reset
-            if (isPurchased) {
-                el.classList.add('purchased');
-                costDiv.textContent = 'Owned';
-            } else if (depsMet) {
-                if (canAfford) el.classList.add('available');
-                else el.classList.add('locked'); // Visible but can't afford
-                costDiv.textContent = `Cost: ${formatNumber(tech.cost)} P`;
-            } else {
-                el.classList.add('locked');
-                // Removed inline opacity set to allow CSS class control
-                el.style.opacity = ''; 
-                costDiv.textContent = 'Locked';
-            }
-
-            // Update connectors
-            for (const depId of tech.dependencies) {
-                const conn = document.getElementById(`conn-${depId}-${id}`);
-                if(conn) {
-                    if (gameState.purchasedPrisms[id] && gameState.purchasedPrisms[depId]) {
-                        conn.classList.add('purchased');
-                    } else {
-                        conn.classList.remove('purchased');
-                    }
-                }
-            }
-        }
-    }
-
-    function updateResearchProgressUI() {
-        if (!gameState.researchState.currentResearch) {
-            dom.researchProgressContainer.style.display = 'none';
-            return;
-        }
-
-        dom.researchProgressContainer.style.display = 'flex';
-        const state = gameState.researchState;
-        const techName = gameData.research[state.currentResearch].name;
-        const now = Date.now();
-
-        const totalDuration = state.researchEndTime - state.researchStartTime;
-        const elapsedTime = now - state.researchStartTime;
-        const progress = Math.min(100, (elapsedTime / totalDuration) * 100);
-        
-        const timeLeft = Math.max(0, state.researchEndTime - now) / 1000;
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = Math.floor(timeLeft % 60);
-
-        dom.researchProgressLabel.textContent = `Researching: ${techName}`;
-        dom.researchProgressBar.style.width = `${progress}%`;
-        dom.researchProgressTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-
-    function initializeConsumables() {
-        let html = '';
-        for (const id in gameData.consumables) {
-            const item = gameData.consumables[id];
-            html += `
-                <div class="consumable-item" id="consumable-item-${id}">
-                    <div class="consumable-info">
-                        <div class="item-name">${item.name}</div>
-                        <small>${item.desc}</small>
-                    </div>
-                    <div class="consumable-actions">
-                        <div class="active-timer"></div>
-                        <button class="buy-button consumable-button" data-id="${id}"></button>
-                    </div>
-                </div>
-            `;
-        }
-        dom.consumablesContainer.innerHTML = html;
-    }
-
-    function updateConsumablesUI() {
-        const now = Date.now();
-        for (const id in gameData.consumables) {
-            const item = gameData.consumables[id];
-            const state = gameState.consumableState[id] || { cooldown: 0, activeUntil: 0 };
-            const el = document.getElementById(`consumable-item-${id}`);
-            if(!el) continue;
-
-            const btn = el.querySelector('.consumable-button');
-            const timerDiv = el.querySelector('.active-timer');
-            
-            const cooldownLeft = state.cooldown - now;
-            const activeLeft = state.activeUntil - now;
-            const isTimedBoost = item.type === 'prod_boost' || item.type === 'click_boost' || item.type === 'cost_reduction';
-
-            // Boost duration logic (Prism upgrade p4_top)
-            let durationMult = 1;
-            if (gameState.purchasedPrisms['p4_top']) durationMult = 1.5;
-
-            if (cooldownLeft > 0) {
-                btn.disabled = true;
-                btn.textContent = `Cooldown (${(cooldownLeft / 1000).toFixed(1)}s)`;
-            } else if (isTimedBoost && activeLeft > 0) {
-                btn.disabled = true;
-                btn.textContent = "Active";
-            } else {
-                const affordable = gameState.energy >= item.cost;
-                btn.disabled = !affordable;
-                btn.textContent = `Cost: ${formatNumber(item.cost)}`;
-            }
-
-            if (activeLeft > 0) {
-                timerDiv.textContent = `Active: ${(activeLeft / 1000).toFixed(1)}s`;
-            } else {
-                timerDiv.textContent = '';
-            }
-        }
-    }
-    
-    function renderChallenges() {
-        // Challenges update less frequently so rebuilding DOM is okay-ish, but let's be safe
-        let html = '';
-        for (const id in gameData.challenges) {
-            const chal = gameData.challenges[id];
-            const reqMet = chal.requirement(gameState);
-            const isCompleted = !!gameState.completedChallenges[id];
-            const isActive = gameState.activeChallenge === id;
-            let classes = 'challenge-item';
-            if (isCompleted) classes += ' completed';
-            if (isActive) classes += ' active';
-            if (!reqMet) classes += ' locked';
-
-            let buttonHTML = '';
-            if (isActive) {
-                buttonHTML = `<button class="challenge-button danger" data-id="${id}" data-action="abandon">Abandon</button>`;
-            } else if (!reqMet) {
-                buttonHTML = `<button class="challenge-button" disabled>${chal.reqDesc}</button>`;
-            } else if (!gameState.activeChallenge && !isCompleted) {
-                buttonHTML = `<button class="challenge-button" data-id="${id}" data-action="start">Start</button>`;
-            } else {
-                buttonHTML = `<button class="challenge-button" disabled>${isCompleted ? 'Completed' : 'Challenge Active'}</button>`;
-            }
-
-            html += `
-                <div class="${classes}" id="${id}">
-                    <div class="item-name">${chal.name} ${isCompleted ? '(✓)' : ''}</div>
-                    <small class="item-desc">${chal.desc}</small>
-                    <div class="challenge-reward"><b>Reward:</b> ${chal.rewardDesc}</div>
-                    ${buttonHTML}
-                </div>
-            `;
-        }
-        if(dom.challengesContainer.innerHTML !== html) dom.challengesContainer.innerHTML = html;
-    }
-
-    function updateChallengeIndicator() {
-        if (gameState.activeChallenge) {
-            const name = gameData.challenges[gameState.activeChallenge].name;
-            dom.challengeIndicator.textContent = `Challenge Active: ${name}`;
-            dom.challengeIndicator.style.display = 'block';
-        } else {
-            dom.challengeIndicator.style.display = 'none';
-        }
-    }
-
-    function renderTiers() {
-        const currentTier = gameState.currentTier;
-        const nextTier = currentTier + 1;
-        let html = `<h3>Current Tier: ${currentTier}</h3>`;
-
-        if (nextTier > Object.keys(gameData.tiers).length) {
-            html += `<p>You have reached the maximum Tier!</p>`;
-        } else {
-            const tierData = gameData.tiers[nextTier];
-            const affordable = gameState.energy >= tierData.cost;
-            html += `
-                <div class="tier-info-box">
-                    <h4>Next Tier: ${nextTier}</h4>
-                    <p class="tier-desc">${tierData.desc}</p>
-                    <button id="tier-up-button" class="prestige-button" ${affordable ? '' : 'disabled'}>
-                        Cost: ${formatNumber(tierData.cost)} Energy
-                    </button>
-                </div>
-            `;
-        }
-        if(dom.tierInfo.innerHTML !== html) dom.tierInfo.innerHTML = html;
-    }
-
-
-    function renderCosmicLaws() {
-        let html = '';
-        const purchasedLawsCount = Object.keys(gameState.cosmicLaws).length;
-        const sortedLaws = Object.keys(gameData.cosmicLaws).sort((a,b) => gameData.cosmicLaws[a].cost - gameData.cosmicLaws[b].cost);
-
-        for (const id of sortedLaws) {
-            const law = gameData.cosmicLaws[id];
-            let dynamicDesc = law.desc;
-
-            switch(id) {
-                case 'cl3':
-                    dynamicDesc = `${law.desc} (Currently: +${formatNumber(gameState.nebulaGas, true)})`;
-                    break;
-                case 'cl5':
-                    const lawsCount = purchasedLawsCount + (gameState.cosmicLaws[id] ? 0 : 1);
-                    const gravityBonus = lawsCount * law.effect.bonus * 100;
-                    dynamicDesc = `${law.desc} (Currently: +${gravityBonus.toFixed(0)}%)`;
-                    break;
-                case 'cl8':
-                    const voidBonus = (gameState.nebulaGas * law.effect.bonus * 100);
-                    dynamicDesc = `${law.desc} (Currently: +${formatNumber(voidBonus)}%)`;
-                    break;
-            }
-            
-            if(gameState.cosmicLaws[id]) {
-                html += `<div class="tech purchased" id="${id}"><div>${law.name}</div><small>${dynamicDesc}</small></div>`;
-            } else {
-                 const affordable = gameState.nebulaGas >= law.cost;
-                 html += `
-                    <div class="tech available" id="${id}">
-                        <div>${law.name}</div>
-                        <small>${dynamicDesc}</small>
-                        <button class="buy-button tech-button" data-id="${id}" ${affordable ? '' : 'disabled'}>
-                            Cost: ${formatNumber(law.cost, true)} Nebula Gas
-                        </button>
-                    </div>
-                `;
-            }
-        }
-        if(dom.cosmicLawsContainer.innerHTML !== html) dom.cosmicLawsContainer.innerHTML = html;
-    }
-
-    function addLogMessage(message, type = 'normal') {
-        const p = document.createElement('p');
-        p.textContent = `> ${message}`;
-        p.className = type;
-        dom.logMessages.prepend(p);
-        if (dom.logMessages.children.length > 20) {
-            dom.logMessages.lastChild.remove();
-        }
-    }
-
     // #endregion
 
-    // #region VISUALS
-    function createClickParticle(x, y) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Random scatter
-        const spread = 20;
-        const destX = (Math.random() - 0.5) * spread * 10;
-        const destY = (Math.random() - 0.5) * spread * 10;
-        
-        particle.style.left = `${x}px`;
-        particle.style.top = `${y}px`;
-        particle.style.transform = `translate(${destX}px, ${destY}px)`;
-        
-        dom.particlesContainer.appendChild(particle);
-        setTimeout(() => particle.remove(), 1000);
+    // #region CHANGELOG & HELPERS
+    function renderChangelogNav() {
+        dom.changelogNav.innerHTML = '';
+        changelogData.forEach((log, index) => {
+            const div = document.createElement('div');
+            div.className = `changelog-nav-item ${index === 0 ? 'active' : ''}`;
+            div.textContent = `${log.title}`;
+            div.addEventListener('click', () => {
+                document.querySelectorAll('.changelog-nav-item').forEach(el => el.classList.remove('active'));
+                div.classList.add('active');
+                renderChangelogDetails(log);
+            });
+            dom.changelogNav.appendChild(div);
+        });
+        if(changelogData.length > 0) renderChangelogDetails(changelogData[0]);
     }
 
-    function createFloatingText(x, y, text) {
-        const el = document.createElement('div');
-        el.textContent = text;
-        el.classList.add('floating-text');
-        el.style.left = `${x}px`;
-        el.style.top = `${y}px`;
-        dom.particlesContainer.appendChild(el);
-        setTimeout(() => el.remove(), 1000);
+    function renderChangelogDetails(log) {
+        dom.changelogTitle.textContent = `${log.title} (${log.date})`;
+        let html = '';
+        if (log.changes.features) { html += `<div class="changelog-section"><h4>NEW FEATURES</h4><ul>` + log.changes.features.map(c=>`<li>${c}</li>`).join('') + `</ul></div>`; }
+        if (log.changes.balance) { html += `<div class="changelog-section"><h4>BALANCE CHANGES</h4><ul>` + log.changes.balance.map(c=>`<li>${c}</li>`).join('') + `</ul></div>`; }
+        if (log.changes.improvements) { html += `<div class="changelog-section"><h4>IMPROVEMENTS</h4><ul>` + log.changes.improvements.map(c=>`<li>${c}</li>`).join('') + `</ul></div>`; }
+        if (log.changes.bugs) { html += `<div class="changelog-section"><h4>BUG FIXES</h4><ul>` + log.changes.bugs.map(c=>`<li>${c}</li>`).join('') + `</ul></div>`; }
+        dom.changelogBody.innerHTML = html;
+    }
+
+    function showChangelog() { dom.changelogModal.classList.remove('hidden'); }
+    function checkFeatureUnlocks() {
+        const hasPrismsUnlocked = gameState.currentTier >= 1;
+        const prismTabBtn = document.querySelector('.tab-button[data-tab="prisms"]');
+        if (prismTabBtn) prismTabBtn.style.display = hasPrismsUnlocked ? '' : 'none';
+        const prismDisplay = document.getElementById('prisms-display');
+        if (prismDisplay && prismDisplay.parentElement) prismDisplay.parentElement.style.display = hasPrismsUnlocked ? '' : 'none';
     }
     // #endregion
 
     // #region EVENT HANDLERS
-
     function setupEventListeners() {
         dom.forgeButton.addEventListener('click', (e) => {
+            // Update Combo
+            gameState.comboMultiplier = Math.min(3.0, gameState.comboMultiplier + 0.08);
+            lastForgeClickTime = Date.now();
+            dom.comboContainer.classList.add('active');
+
             const prod = calculateProduction();
-            gameState.energy += prod.click;
-            gameState.stats.totalEnergy += prod.click;
-            if (gameState.research['r10']) {
-                gameState.stardust += prod.stardust * 0.001;
-            }
-
-            // Visuals
-            const rect = dom.forgeButton.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-
-            createFloatingText(centerX, rect.top, `+${formatNumber(prod.click)}`);
-            for(let i=0; i<5; i++) {
-                createClickParticle(centerX, centerY);
-            }
+            gameState.energy += prod.click; gameState.stats.totalEnergy += prod.click;
+            if (gameState.research['r10']) gameState.stardust += prod.stardust * 0.001;
+            
+            const clickX = e.clientX;
+            const clickY = e.clientY;
+            
+            // Visual feedback based on combo intensity
+            const scale = 1 + (gameState.comboMultiplier - 1) * 0.5;
+            createFloatingText(clickX, clickY - 20, `+${formatNumber(prod.click)}`, scale);
+            
+            const particleCount = Math.floor(5 * gameState.comboMultiplier);
+            for(let i=0; i<particleCount; i++) createClickParticle(clickX, clickY);
         });
 
-        dom.buyControls.addEventListener('click', (e) => {
-            if(e.target.classList.contains('buy-amt-btn')) {
-                gameState.buyAmount = e.target.dataset.amt === 'max' ? 'max' : parseInt(e.target.dataset.amt);
-                updateBuyControls();
-                updateUI(calculateProduction()); // Force refresh cost display
-            }
+        dom.buyControls.addEventListener('click', (e) => { 
+            if(e.target.classList.contains('buy-amt-btn')) { 
+                const amt = e.target.dataset.amt;
+                // Allow 'max' and 'next' as strings, parse numbers otherwise
+                gameState.buyAmount = (amt === 'max' || amt === 'next') ? amt : parseInt(amt); 
+                updateBuyControls(); 
+                updateUI(calculateProduction()); 
+            } 
         });
-
-        dom.generatorsContent.addEventListener('click', (e) => {
-            const btn = e.target.closest('.buy-button');
-            if (btn) {
-                buyGenerator(btn.dataset.id);
-            }
-        });
-        
-        dom.researchTree.addEventListener('click', (e) => {
-             const btn = e.target.closest('.tech-button');
-            if (btn) {
-                buyResearch(btn.dataset.id);
-            }
-        });
-        
-        dom.prismTreeContainer.addEventListener('click', (e) => {
-            const target = e.target.closest('.prism-tech');
-            if (target) {
-                buyPrismUpgrade(target.dataset.id);
-            }
-        });
+        dom.generatorsContent.addEventListener('click', (e) => { const btn = e.target.closest('.buy-button'); if (btn) buyGenerator(btn.dataset.id); });
+        dom.researchTree.addEventListener('click', (e) => { const btn = e.target.closest('.tech-button'); if (btn) buyResearch(btn.dataset.id); });
+        dom.prismTreeContainer.addEventListener('click', (e) => { const target = e.target.closest('.prism-tech'); if (target) buyPrismUpgrade(target.dataset.id); });
 
         const boostButton = document.getElementById('prism-boost-button');
         boostButton.addEventListener('mousedown', () => gameState.isPrismBoosting = true);
         boostButton.addEventListener('mouseup', () => gameState.isPrismBoosting = false);
-        boostButton.addEventListener('mouseleave', () => gameState.isPrismBoosting = false); // In case mouse leaves while held
+        boostButton.addEventListener('mouseleave', () => gameState.isPrismBoosting = false);
         boostButton.addEventListener('touchstart', (e) => { e.preventDefault(); gameState.isPrismBoosting = true; }, { passive: false });
         boostButton.addEventListener('touchend', (e) => { e.preventDefault(); gameState.isPrismBoosting = false; });
         boostButton.addEventListener('touchcancel', (e) => { e.preventDefault(); gameState.isPrismBoosting = false; });
 
-
-        dom.consumablesContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('.consumable-button');
-            if (btn) {
-                buyConsumable(btn.dataset.id);
-            }
-        });
-
-        dom.challengesContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('.challenge-button');
-            if (btn) {
-                const id = btn.dataset.id;
-                const action = btn.dataset.action;
-                if (action === 'start') {
-                    startChallenge(id);
-                } else if (action === 'abandon') {
-                    abandonChallenge(true);
-                }
-            }
-        });
-
-        dom.tierInfo.addEventListener('click', (e) => {
-            if (e.target.matches('#tier-up-button')) {
-                buyTier();
-            }
-        });
-
-        dom.cosmicLawsContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('.tech-button');
-            if (btn) {
-                buyCosmicLaw(btn.dataset.id);
-            }
-        });
+        dom.consumablesContainer.addEventListener('click', (e) => { const btn = e.target.closest('.consumable-button'); if (btn) buyConsumable(btn.dataset.id); });
+        dom.challengesContainer.addEventListener('click', (e) => { const btn = e.target.closest('.challenge-button'); if (btn) { const id = btn.dataset.id; const action = btn.dataset.action; if (action === 'start') startChallenge(id); else if (action === 'abandon') abandonChallenge(true); } });
+        dom.tierInfo.addEventListener('click', (e) => { if (e.target.matches('#tier-up-button')) buyTier(); });
+        dom.cosmicLawsContainer.addEventListener('click', (e) => { const btn = e.target.closest('.tech-button'); if (btn) buyCosmicLaw(btn.dataset.id); });
         
         document.querySelectorAll('.tab-button').forEach(button => {
             button.addEventListener('click', () => {
                 const targetId = button.dataset.tab;
-
                 if (targetId === 'prisms') {
-                    // Activate Prism Overlay Mode
-                    // Fix: Hide other active content to prevent bleed-through/interaction issues behind the overlay
+                    const currentActive = document.querySelector('.tab-button.active');
+                    if(currentActive && currentActive.dataset.tab !== 'prisms') previousTab = currentActive.dataset.tab;
                     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
                     document.getElementById('prisms-content').classList.add('active');
                 } else {
-                    // Normal tab switching
-                    const currentActive = document.querySelector('.tab-button.active');
-                    if (currentActive) currentActive.classList.remove('active');
-                    button.classList.add('active');
-                    
-                    const currentTab = document.querySelector('.tab-content.active');
-                    if (currentTab) currentTab.classList.remove('active');
-                    
-                    // Explicitly hide prisms content if it was active
+                    const currentActive = document.querySelector('.tab-button.active'); if (currentActive) currentActive.classList.remove('active'); button.classList.add('active');
+                    const currentTab = document.querySelector('.tab-content.active'); if (currentTab) currentTab.classList.remove('active');
                     document.getElementById('prisms-content').classList.remove('active');
-                    
-                    const targetTabContent = document.getElementById(`${targetId}-content`);
-                    if(targetTabContent) targetTabContent.classList.add('active');
+                    const targetTabContent = document.getElementById(`${targetId}-content`); if(targetTabContent) targetTabContent.classList.add('active');
                 }
             });
         });
 
-        // Close Prism View Button
         dom.exitPrismViewBtn.addEventListener('click', () => {
             document.getElementById('prisms-content').classList.remove('active');
-            
-            // Re-activate whatever tab button says is active (usually Generators or Research)
-            const activeBtn = document.querySelector('.tab-button.active');
-            if(activeBtn) {
-                const targetContent = document.getElementById(`${activeBtn.dataset.tab}-content`);
-                if(targetContent) targetContent.classList.add('active');
-            } else {
-                 // Default to generators if nothing is active
-                 document.getElementById('generators-content').classList.add('active');
-            }
+            let targetTab = previousTab || 'generators';
+            document.querySelectorAll('.tab-button').forEach(btn => { if(btn.dataset.tab === targetTab) btn.classList.add('active'); else btn.classList.remove('active'); });
+            const targetContent = document.getElementById(`${targetTab}-content`); if(targetContent) targetContent.classList.add('active');
         });
 
         dom.prestigeButton.addEventListener('click', performBigBang);
-        
-        // Options Modal Listeners
         dom.settingsButton.addEventListener('click', () => dom.optionsModal.classList.remove('hidden'));
         dom.optionsCloseButton.addEventListener('click', () => dom.optionsModal.classList.add('hidden'));
-        dom.optionsModal.addEventListener('click', (e) => {
-             if(e.target === dom.optionsModal) { // Close if clicking on the background
-                dom.optionsModal.classList.add('hidden');
-             }
-        });
+        dom.optionsModal.addEventListener('click', (e) => { if(e.target === dom.optionsModal) dom.optionsModal.classList.add('hidden'); });
         document.getElementById('save-button').addEventListener('click', () => saveGame(true));
         document.getElementById('hard-reset-button').addEventListener('click', hardReset);
         dom.notationToggleButton.addEventListener('click', toggleNotation);
+        dom.changelogButton.addEventListener('click', showChangelog);
+        dom.changelogCloseButton.addEventListener('click', () => dom.changelogModal.classList.add('hidden'));
+        dom.changelogModal.addEventListener('click', (e) => { if(e.target === dom.changelogModal) dom.changelogModal.classList.add('hidden'); });
+        dom.changelogToggle.addEventListener('change', (e) => { gameState.settings.showChangelog = e.target.checked; });
     }
-    
     // #endregion
 
-    // #region ACTIONS & HELPERS
-
-    function getCostMultiplier() {
-        let mult = gameState.tempBonuses.costMultiplier;
-        if (gameState.cosmicLaws['cl4']) {
-            mult *= gameData.cosmicLaws.cl4.effect.amount;
-        }
-        if (gameState.currentTier >= 6) {
-            mult *= Math.pow(0.9, gameState.currentTier);
-        }
-        return mult;
+    // #region ACTIONS
+    function getCostMultiplier() { 
+        let mult = gameState.tempBonuses.costMultiplier; 
+        if (gameState.cosmicLaws['cl4']) mult *= gameData.cosmicLaws.cl4.effect.amount; 
+        if (gameState.purchasedPrisms['p5_new_side']) mult *= gameData.prisms.p5_new_side.effect.value;
+        if (gameState.currentTier >= 6) mult *= Math.pow(0.9, gameState.currentTier); 
+        return mult; 
     }
+    
+    function calculateBulkCost(genId, currentCount, buyMode) { 
+        const gen = gameData.generators[genId]; 
+        const multiplier = getCostMultiplier(); 
+        const baseCost = gen.baseCost; 
+        const growth = gen.costGrowth; 
 
-    // Calculates cost for ONE item at specific count
-    function calculateSingleCost(genId, count) {
-        const gen = gameData.generators[genId];
-        const multiplier = getCostMultiplier();
-        return Math.floor(gen.baseCost * Math.pow(gen.costGrowth, count) * multiplier);
-    }
-
-    // Calculates cost and amount for bulk buying
-    function calculateBulkCost(genId, currentCount, buyMode) {
-        const gen = gameData.generators[genId];
-        const multiplier = getCostMultiplier();
-        const baseCost = gen.baseCost;
-        const growth = gen.costGrowth;
-        
-        if (buyMode === 1) {
-            return {
-                cost: Math.floor(baseCost * Math.pow(growth, currentCount) * multiplier),
-                amount: 1
-            };
-        }
-
-        if (buyMode === 10) {
-            // Geometric series sum: a * (1 - r^n) / (1 - r)
-            // First term (a) is cost of next item
+        // Helper for geometric sum
+        const getCostForN = (n) => {
             const firstTerm = baseCost * Math.pow(growth, currentCount);
-            const sum = firstTerm * (1 - Math.pow(growth, 10)) / (1 - growth);
-            return {
-                cost: Math.floor(sum * multiplier),
-                amount: 10
-            };
-        }
-
-        if (buyMode === 'max') {
-            // Max buy logic: derived from sum formula
-            const effectiveEnergy = gameState.energy / multiplier;
-            const costOfNext = baseCost * Math.pow(growth, currentCount);
-            
-            if (effectiveEnergy < costOfNext) {
-                return { cost: Math.floor(costOfNext * multiplier), amount: 1 }; // Can't afford 1
-            }
-
-            // n = log_growth ( 1 + (energy * (growth - 1) / costOfNext) )
-            const n = Math.floor(Math.log(1 + (effectiveEnergy * (growth - 1) / costOfNext)) / Math.log(growth));
-            
-            // Recalculate exact cost for n
-            const exactSum = costOfNext * (Math.pow(growth, n) - 1) / (growth - 1);
-            
-            return {
-                cost: Math.floor(exactSum * multiplier),
-                amount: Math.max(1, n)
-            };
-        }
-        
-        return { cost: Infinity, amount: 0 };
-    }
-
-    function getResearchCost(techId) {
-        const tech = gameData.research[techId];
-        let costMultiplier = 1;
-        if (gameState.cosmicLaws['cl10']) {
-            costMultiplier *= gameData.cosmicLaws.cl10.effect.amount;
-        }
-        if (gameState.tempBonuses.isNextResearchFree) return 0;
-
-        return tech.cost * costMultiplier;
-    }
-
-    function calculateResearchTime(techId) {
-        const sortedResearch = Object.keys(gameData.research).sort((a,b) => gameData.research[a].cost - gameData.research[b].cost);
-        const index = sortedResearch.indexOf(techId);
-        const totalTechs = sortedResearch.length;
-    
-        const startTime = 1000; // 1 second
-        const endTime = 300000; // 5 minutes (300,000 ms)
-    
-        const base = endTime / startTime;
-        const exponent = index / (totalTechs - 1);
-        let time = startTime * Math.pow(base, exponent);
-    
-        if (gameState.currentTier >= 1) {
-            time /= 5;
-        }
-
-        // Apply prism upgrade effects
-        let researchSpeedMultiplier = 1;
-        if (gameState.cosmicLaws['cl14']) {
-            researchSpeedMultiplier *= gameData.cosmicLaws.cl14.effect.multiplier;
-        }
-        for (const id in gameState.purchasedPrisms) {
-            const prismTech = gameData.prisms[id];
-            if (prismTech?.effect.type === 'research_speed') {
-                // If value is small (0.x), it's a reduction. If 0.1, it's 10x speed.
-                researchSpeedMultiplier *= prismTech.effect.value;
-            }
-        }
-        time *= researchSpeedMultiplier;
-    
-        return time;
-    }
-
-
-    function buyGenerator(id) {
-        if (gameState.activeChallenge === 'ch1' && gameData.generators[id].resource === 'stardust') {
-            addLogMessage("Challenge restriction: Cannot build Stardust generators.", 'danger');
-            return;
-        }
-        if (gameState.activeChallenge === 'ch3' && (id === 'probe' || id === 'drone')) {
-            addLogMessage("Challenge restriction: Cannot build Probes or Drones.", 'danger');
-            return;
-        }
-        if (gameState.activeChallenge === 'ch5') {
-            const builtTypes = Object.keys(gameState.generators).filter(genId => gameState.generators[genId].count > 0);
-            if (builtTypes.length > 0 && !builtTypes.includes(id)) {
-                addLogMessage("Challenge restriction: Can only build one type of generator.", 'danger');
-                return;
-            }
-        }
-
-        const state = gameState.generators[id] || { count: 0 };
-        const calc = calculateBulkCost(id, state.count, gameState.buyAmount);
-        
-        if (gameState.energy >= calc.cost) {
-            gameState.energy -= calc.cost;
-            state.count += calc.amount;
-            gameState.generators[id] = state;
-            
-            // Check milestones for the new total range
-            const prevCount = state.count - calc.amount;
-            gameData.milestones.forEach(m => {
-                if (state.count >= m && prevCount < m) {
-                    addLogMessage(`Milestone Reached! ${gameData.generators[id].name}s are now more effective!`, 'major');
-                }
-            });
-            // Update immediately for responsiveness
-            updateUI(calculateProduction());
-        }
-    }
-    
-    function buyResearch(id) {
-        if (gameState.researchState.currentResearch) return;
-        
-        const cost = getResearchCost(id);
-        if (gameState.stardust >= cost && !gameState.research[id]) {
-            gameState.stardust -= cost;
-            
-            // Instant research logic (Prism p6_top)
-            let isInstant = false;
-            // Calculate time just to check if it's instant
-            if (calculateResearchTime(id) < 100) isInstant = true;
-
-            const duration = calculateResearchTime(id);
-            const now = Date.now();
-            gameState.researchState.currentResearch = id;
-            gameState.researchState.researchStartTime = now;
-            gameState.researchState.researchEndTime = now + duration;
-            
-            addLogMessage(`Started Research: ${gameData.research[id].name}`, 'normal');
-            
-            if (gameState.tempBonuses.isNextResearchFree) {
-                gameState.tempBonuses.isNextResearchFree = false;
-            }
-            updateResearchUI();
-        }
-    }
-
-    function buyPrismUpgrade(id) {
-        if (!id || gameState.purchasedPrisms[id]) return;
-
-        const tech = gameData.prisms[id];
-        const depsMet = tech.dependencies.every(dep => gameState.purchasedPrisms[dep]);
-        
-        if (depsMet && gameState.prisms >= tech.cost) {
-            gameState.prisms -= tech.cost;
-            gameState.purchasedPrisms[id] = true;
-            addLogMessage(`Prism Upgrade Unlocked: ${tech.name}`, 'prism');
-            updatePrismTreeUI();
-        }
-    }
-
-    function completeResearch() {
-        const techId = gameState.researchState.currentResearch;
-        if (!techId) return;
-
-        gameState.research[techId] = true;
-        addLogMessage(`Research Complete: ${gameData.research[techId].name}`, 'major');
-        
-        gameState.researchState.currentResearch = null;
-        gameState.researchState.researchStartTime = 0;
-        gameState.researchState.researchEndTime = 0;
-        
-        updateResearchUI();
-    }
-    
-    function buyConsumable(id) {
-        const item = gameData.consumables[id];
-        const state = gameState.consumableState[id] || { cooldown: 0, activeUntil: 0 };
-        const isTimedBoost = item.type === 'prod_boost' || item.type === 'click_boost' || item.type === 'cost_reduction';
-        
-        if (gameState.energy < item.cost || state.cooldown > Date.now() || (isTimedBoost && state.activeUntil > Date.now())) {
-            return;
-        }
-
-        gameState.energy -= item.cost;
-        addLogMessage(`Used: ${item.name}!`, 'consumable');
-
-        const cooldownDuration = (id === 'c1' ? 10000 : 5000);
-        state.cooldown = Date.now() + cooldownDuration;
-
-        const currentProd = calculateProduction();
-        
-        // Duration multiplier
-        let durationMult = 1;
-        if (gameState.purchasedPrisms['p4_top']) durationMult = 1.5;
-
-        switch(item.type) {
-            case 'instant_prod':
-                const gain = currentProd[item.resource] * item.duration * durationMult;
-                gameState[item.resource] += gain;
-                break;
-            case 'instant_prod_all':
-                gameState.energy += currentProd.energy * item.duration * durationMult;
-                gameState.stardust += currentProd.stardust * item.duration * durationMult;
-                break;
-            case 'prod_boost':
-            case 'click_boost':
-            case 'cost_reduction':
-                const bonusType = item.type.split('_')[0] + 'Multiplier';
-                gameState.tempBonuses[bonusType] *= item.multiplier;
-                state.activeUntil = Date.now() + (item.duration * durationMult * 1000);
-                
-                setTimeout(() => {
-                    gameState.tempBonuses[bonusType] /= item.multiplier;
-                    state.activeUntil = 0;
-                }, item.duration * durationMult * 1000);
-                break;
-            case 'free_research':
-                gameState.tempBonuses.isNextResearchFree = true;
-                break;
-            case 'energy_to_stardust':
-                const stardustGain = gameState.energy * item.ratio;
-                gameState.stardust += stardustGain;
-                break;
-            case 'prestige_echo':
-                const prestigeGain = calculatePrestigeGain();
-                if (prestigeGain > 0) {
-                    const nebulaGain = Math.max(1, Math.floor(prestigeGain * item.ratio));
-                    gameState.nebulaGas += nebulaGain;
-                }
-                break;
-        }
-        gameState.consumableState[id] = state;
-        updateConsumablesUI();
-    }
-
-    function buyCosmicLaw(id) {
-        const law = gameData.cosmicLaws[id];
-        if (gameState.nebulaGas >= law.cost && !gameState.cosmicLaws[id]) {
-            gameState.nebulaGas -= law.cost;
-            gameState.cosmicLaws[id] = true;
-            addLogMessage(`Cosmic Law Enacted: ${law.name}`, 'major');
-            
-            if (law.effect.type === 'persistent_research') {
-                gameState.research[law.effect.target] = true;
-            }
-            renderCosmicLaws();
-        }
-    }
-
-    function calculatePrestigeGain() {
-        if (gameState.stats.totalEnergy < 200000) return 0;
-        let gain = Math.log(gameState.stats.totalEnergy / 200000) * 12;
-        
-        if (gameState.cosmicLaws['cl6']) {
-            gain *= gameData.cosmicLaws.cl6.effect.multiplier;
-        }
-        if (gameState.currentTier >= 4) {
-            gain *= 3;
-        }
-        if (gameState.purchasedPrisms['p4_bot']) {
-            gain *= 1.05;
-        }
-        if (gameState.purchasedPrisms['p7_bot']) {
-             gain = Math.pow(gain, 2);
-        }
-
-        return Math.max(0, Math.floor(gain));
-    }
-    
-    function applyPersistentLaws() {
-        if (gameState.cosmicLaws['cl9']) {
-            if (!gameState.generators['probe']) gameState.generators['probe'] = { count: 0 };
-            if (!gameState.generators['drone']) gameState.generators['drone'] = { count: 0 };
-            gameState.generators['probe'].count = Math.max(gameState.generators['probe'].count, 1);
-            gameState.generators['drone'].count = Math.max(gameState.generators['drone'].count, 1);
-        }
-        if (gameState.cosmicLaws['cl11']) {
-             gameState.research['r1'] = true;
-        }
-    }
-
-    function resetRunState(isChallengeStart = false, isTierUp = false) {
-        const preserved = {
-            // Keep persistent currencies and unlocks
-            nebulaGas: gameState.nebulaGas,
-            prisms: isTierUp ? 0 : gameState.prisms, // Reset prisms on Tier up
-            purchasedPrisms: isTierUp ? {} : gameState.purchasedPrisms, // Reset prism upgrades on Tier up
-            bigBangCount: gameState.bigBangCount,
-            currentTier: gameState.currentTier,
-            cosmicLaws: gameState.cosmicLaws,
-            completedChallenges: gameState.completedChallenges,
-            notation: gameState.notation,
-            activeChallenge: isChallengeStart ? gameState.activeChallenge : null
+            const sum = firstTerm * (1 - Math.pow(growth, n)) / (1 - growth);
+            return Math.floor(sum * multiplier);
         };
 
-        gameState = JSON.parse(JSON.stringify(defaultGameState));
+        if (buyMode === 1) { 
+            return { cost: Math.floor(baseCost * Math.pow(growth, currentCount) * multiplier), amount: 1 }; 
+        } 
         
-        gameState.nebulaGas = preserved.nebulaGas;
-        gameState.prisms = preserved.prisms;
-        gameState.purchasedPrisms = preserved.purchasedPrisms;
-        gameState.bigBangCount = preserved.bigBangCount;
-        gameState.currentTier = preserved.currentTier;
-        gameState.cosmicLaws = preserved.cosmicLaws;
-        gameState.completedChallenges = preserved.completedChallenges;
-        gameState.notation = preserved.notation;
-        gameState.activeChallenge = preserved.activeChallenge;
-        
-        applyPersistentLaws();
-        renderAll();
-        saveGame();
-    }
+        if (buyMode === 10) return { cost: getCostForN(10), amount: 10 };
+        if (buyMode === 100) return { cost: getCostForN(100), amount: 100 };
 
-    function performBigBang() {
-        if (gameState.activeChallenge) {
-            addLogMessage("Cannot perform a Big Bang during a challenge.", 'danger');
-            return;
-        }
-        const gain = calculatePrestigeGain();
-        if (gain < 1) return;
-
-        gameState.nebulaGas += gain;
-        gameState.bigBangCount++;
-        
-        if (gameState.cosmicLaws['cl13']) {
-            const prismGain = gameData.cosmicLaws.cl13.effect.amount;
-            gameState.prisms += prismGain;
-             addLogMessage(`Gained ${prismGain} Prism from Galactic Commerce.`, 'prism');
-        }
-        
-        addLogMessage(`A new universe is born, granting you ${formatNumber(gain, true)} Nebula Gas!`, 'major');
-        resetRunState(false);
-    }
-
-    function startChallenge(id) {
-        if (gameState.activeChallenge) {
-            addLogMessage("You are already in a challenge.", 'danger');
-            return;
-        }
-        if (!gameData.challenges[id].requirement(gameState)) {
-            addLogMessage("You have not met the requirements for this challenge.", 'danger');
-            return;
-        }
-        if (confirm(`Are you sure you want to start the "${gameData.challenges[id].name}" challenge? This will reset your current run.`)) {
-            gameState.activeChallenge = id;
-            addLogMessage(`Challenge Started: ${gameData.challenges[id].name}.`, 'major');
-            resetRunState(true);
-        }
-    }
-
-    function completeChallenge() {
-        const id = gameState.activeChallenge;
-        if (!id) return;
-
-        gameState.completedChallenges[id] = true;
-        addLogMessage(`Challenge Complete: ${gameData.challenges[id].name}! Reward unlocked.`, 'major');
-        
-        gameState.activeChallenge = null;
-        resetRunState(false);
-    }
-
-    function abandonChallenge(confirmFirst = true) {
-        if (!gameState.activeChallenge) return;
-        
-        if (confirmFirst && !confirm("Are you sure you want to abandon this challenge? Your progress will be lost.")) {
-            return;
-        }
-        
-        addLogMessage(`Challenge Abandoned: ${gameData.challenges[gameState.activeChallenge].name}.`, 'danger');
-        gameState.activeChallenge = null;
-        resetRunState(false);
-    }
-
-    function buyTier() {
-        const nextTier = gameState.currentTier + 1;
-        if (nextTier > Object.keys(gameData.tiers).length) return;
-
-        const cost = gameData.tiers[nextTier].cost;
-        if (gameState.energy >= cost) {
-            if (confirm(`Are you sure you want to advance to Tier ${nextTier}? This will reset your run, including Prisms and Research, but you will keep Nebula Gas, Cosmic Laws, and Challenge completions.`)) {
-                gameState.currentTier = nextTier;
-                addLogMessage(`Congratulations! You have advanced to Tier ${nextTier}!`, 'major');
-                resetRunState(false, true); // Perform a Tier Up reset
-                renderTiers();
+        if (buyMode === 'next') {
+            let nextTarget = -1;
+            // Find the next milestone
+            for (let m of gameData.milestones) {
+                if (currentCount < m) {
+                    nextTarget = m;
+                    break;
+                }
             }
+            // If all milestones reached, behave like "Max"
+            if (nextTarget === -1) {
+                 return calculateBulkCost(genId, currentCount, 'max');
+            }
+            const amountNeeded = nextTarget - currentCount;
+            return { cost: getCostForN(amountNeeded), amount: amountNeeded };
         }
+
+        if (buyMode === 'max') { 
+            const effectiveEnergy = gameState.energy / multiplier; 
+            const costOfNext = baseCost * Math.pow(growth, currentCount); 
+            if (effectiveEnergy < costOfNext) return { cost: Math.floor(costOfNext * multiplier), amount: 1 }; 
+            const n = Math.floor(Math.log(1 + (effectiveEnergy * (growth - 1) / costOfNext)) / Math.log(growth)); 
+            const exactSum = costOfNext * (Math.pow(growth, n) - 1) / (growth - 1); 
+            return { cost: Math.floor(exactSum * multiplier), amount: Math.max(1, n) }; 
+        } 
+        return { cost: Infinity, amount: 0 }; 
     }
 
-    function toggleNotation() {
-        gameState.notation = gameState.notation === 'standard' ? 'scientific' : 'standard';
-        updateNotationButton();
-    }
+    function getResearchCost(techId) { const tech = gameData.research[techId]; let costMultiplier = 1; if (gameState.cosmicLaws['cl10']) costMultiplier *= gameData.cosmicLaws.cl10.effect.amount; if (gameState.tempBonuses.isNextResearchFree) return 0; return tech.cost * costMultiplier; }
+    function calculateResearchTime(techId) { const sortedResearch = Object.keys(gameData.research).sort((a,b) => gameData.research[a].cost - gameData.research[b].cost); const index = sortedResearch.indexOf(techId); const totalTechs = sortedResearch.length; const startTime = 1000; const endTime = 300000; const base = endTime / startTime; const exponent = index / (totalTechs - 1); let time = startTime * Math.pow(base, exponent); if (gameState.currentTier >= 1) time /= 5; let researchSpeedMultiplier = 1; if (gameState.cosmicLaws['cl14']) researchSpeedMultiplier *= gameData.cosmicLaws.cl14.effect.multiplier; for (const id in gameState.purchasedPrisms) { const prismTech = gameData.prisms[id]; if (prismTech?.effect.type === 'research_speed') researchSpeedMultiplier *= prismTech.effect.value; } time *= researchSpeedMultiplier; return time; }
 
-    function updateNotationButton() {
-        const mode = gameState.notation.charAt(0).toUpperCase() + gameState.notation.slice(1);
-        dom.notationToggleButton.textContent = `Notation: ${mode}`;
+    function buyGenerator(id) {
+        if (gameState.activeChallenge === 'ch1' && gameData.generators[id].resource === 'stardust') { addLogMessage("Challenge restriction: Cannot build Stardust generators.", 'danger'); return; }
+        if (gameState.activeChallenge === 'ch3' && (id === 'probe' || id === 'drone')) { addLogMessage("Challenge restriction: Cannot build Probes or Drones.", 'danger'); return; }
+        if (gameState.activeChallenge === 'ch5') { const builtTypes = Object.keys(gameState.generators).filter(genId => gameState.generators[genId].count > 0); if (builtTypes.length > 0 && !builtTypes.includes(id)) { addLogMessage("Challenge restriction: Can only build one type of generator.", 'danger'); return; } }
+        const state = gameState.generators[id] || { count: 0 }; const calc = calculateBulkCost(id, state.count, gameState.buyAmount);
+        if (gameState.energy >= calc.cost) { gameState.energy -= calc.cost; state.count += calc.amount; gameState.generators[id] = state; const prevCount = state.count - calc.amount; gameData.milestones.forEach(m => { if (state.count >= m && prevCount < m) addLogMessage(`Milestone Reached! ${gameData.generators[id].name}s are now more effective!`, 'major'); }); updateUI(calculateProduction()); }
     }
     
-    function formatNumber(num, forceStandard = false) {
-        if (num === null || num === undefined || isNaN(num)) return '0';
-
-        if (gameState.notation === 'scientific' && num >= 1000 && !forceStandard) {
-            return num.toExponential(2);
-        }
-
-        if (num > 0 && num < 0.01 && num !== 0) return num.toFixed(3);
-        if (num < 1000) {
-            return parseFloat(num.toFixed(2)).toString();
-        }
-        // Extended suffixes
-        const suffixes = [
-            "", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc", 
-            "Ud", "Dd", "Td", "Qad", "Qid", "Sxd", "Spd", "Od", "Nd", "Vg", "Uvg"
-        ];
-        const i = Math.floor(Math.log10(num) / 3);
-        if (i >= suffixes.length) {
-            return num.toExponential(2);
-        }
-        const value = (num / Math.pow(1000, i));
-        const formattedValue = parseFloat(value.toFixed(2)).toString();
-        return formattedValue + suffixes[i];
+    function buyResearch(id) { if (gameState.researchState.currentResearch) return; const cost = getResearchCost(id); if (gameState.stardust >= cost && !gameState.research[id]) { gameState.stardust -= cost; const duration = calculateResearchTime(id); const now = Date.now(); gameState.researchState.currentResearch = id; gameState.researchState.researchStartTime = now; gameState.researchState.researchEndTime = now + duration; addLogMessage(`Started Research: ${gameData.research[id].name}`, 'normal'); if (gameState.tempBonuses.isNextResearchFree) gameState.tempBonuses.isNextResearchFree = false; updateResearchUI(); } }
+    function buyPrismUpgrade(id) { if (!id || gameState.purchasedPrisms[id]) return; const tech = gameData.prisms[id]; const depsMet = tech.dependencies.every(dep => gameState.purchasedPrisms[dep]); if (depsMet && gameState.prisms >= tech.cost) { gameState.prisms -= tech.cost; gameState.purchasedPrisms[id] = true; addLogMessage(`Prism Upgrade Unlocked: ${tech.name}`, 'prism'); updatePrismTreeUI(); } }
+    function completeResearch() { const techId = gameState.researchState.currentResearch; if (!techId) return; gameState.research[techId] = true; addLogMessage(`Research Complete: ${gameData.research[techId].name}`, 'major'); gameState.researchState.currentResearch = null; gameState.researchState.researchStartTime = 0; gameState.researchState.researchEndTime = 0; updateResearchUI(); }
+    function buyConsumable(id) {
+        const item = gameData.consumables[id]; const state = gameState.consumableState[id] || { cooldown: 0, activeUntil: 0 }; const isTimedBoost = item.type === 'prod_boost' || item.type === 'click_boost' || item.type === 'cost_reduction';
+        if (gameState.energy < item.cost || state.cooldown > Date.now() || (isTimedBoost && state.activeUntil > Date.now())) return;
+        gameState.energy -= item.cost; addLogMessage(`Used: ${item.name}!`, 'consumable');
+        const cooldownDuration = (id === 'c1' ? 10000 : 5000); state.cooldown = Date.now() + cooldownDuration;
+        const currentProd = calculateProduction();
+        let durationMult = 1; if (gameState.purchasedPrisms['p4_top']) durationMult = 1.5;
+        switch(item.type) { case 'instant_prod': gameState[item.resource] += currentProd[item.resource] * item.duration * durationMult; break; case 'instant_prod_all': gameState.energy += currentProd.energy * item.duration * durationMult; gameState.stardust += currentProd.stardust * item.duration * durationMult; break; case 'prod_boost': case 'click_boost': case 'cost_reduction': const bonusType = item.type.split('_')[0] + 'Multiplier'; gameState.tempBonuses[bonusType] *= item.multiplier; state.activeUntil = Date.now() + (item.duration * durationMult * 1000); setTimeout(() => { gameState.tempBonuses[bonusType] /= item.multiplier; state.activeUntil = 0; }, item.duration * durationMult * 1000); break; case 'free_research': gameState.tempBonuses.isNextResearchFree = true; break; case 'energy_to_stardust': gameState.stardust += gameState.energy * item.ratio; break; case 'prestige_echo': const prestigeGain = calculatePrestigeGain(); if (prestigeGain > 0) gameState.nebulaGas += Math.max(1, Math.floor(prestigeGain * item.ratio)); break; }
+        gameState.consumableState[id] = state; updateConsumablesUI();
     }
-    
-    function saveGame(manual = false) {
-        try {
-            const stateToSave = validateAndRepairGameState(JSON.parse(JSON.stringify(gameState)));
-            localStorage.setItem('cosmicForgeSave', JSON.stringify(stateToSave));
-            if (manual) {
-                addLogMessage('Game Saved');
-            }
-        } catch(error) {
-            console.error("Could not save game:", error);
-            if (manual) {
-                addLogMessage('ERROR: Could not save game!', 'danger');
-            }
-        }
-    }
+    function buyCosmicLaw(id) { const law = gameData.cosmicLaws[id]; if (gameState.nebulaGas >= law.cost && !gameState.cosmicLaws[id]) { gameState.nebulaGas -= law.cost; gameState.cosmicLaws[id] = true; addLogMessage(`Cosmic Law Enacted: ${law.name}`, 'major'); if (law.effect.type === 'persistent_research') gameState.research[law.effect.target] = true; renderCosmicLaws(); } }
+    function calculatePrestigeGain() { if (gameState.stats.totalEnergy < 200000) return 0; let gain = Math.log(gameState.stats.totalEnergy / 200000) * 12; if (gameState.cosmicLaws['cl6']) gain *= gameData.cosmicLaws.cl6.effect.multiplier; if (gameState.currentTier >= 4) gain *= 3; if (gameState.purchasedPrisms['p4_bot']) gain *= 1.05; if (gameState.purchasedPrisms['p7_bot']) gain = Math.pow(gain, 2); return Math.max(0, Math.floor(gain)); }
+    function applyPersistentLaws() { if (gameState.cosmicLaws['cl9']) { if (!gameState.generators['probe']) gameState.generators['probe'] = { count: 0 }; if (!gameState.generators['drone']) gameState.generators['drone'] = { count: 0 }; gameState.generators['probe'].count = Math.max(gameState.generators['probe'].count, 1); gameState.generators['drone'].count = Math.max(gameState.generators['drone'].count, 1); } if (gameState.cosmicLaws['cl11']) gameState.research['r1'] = true; }
+    function resetRunState(isChallengeStart = false, isTierUp = false) { const preserved = { nebulaGas: gameState.nebulaGas, prisms: isTierUp ? 0 : gameState.prisms, purchasedPrisms: isTierUp ? {} : gameState.purchasedPrisms, bigBangCount: gameState.bigBangCount, currentTier: gameState.currentTier, cosmicLaws: gameState.cosmicLaws, completedChallenges: gameState.completedChallenges, notation: gameState.notation, settings: gameState.settings, activeChallenge: isChallengeStart ? gameState.activeChallenge : null }; gameState = JSON.parse(JSON.stringify(defaultGameState)); gameState.nebulaGas = preserved.nebulaGas; gameState.prisms = preserved.prisms; gameState.purchasedPrisms = preserved.purchasedPrisms; gameState.bigBangCount = preserved.bigBangCount; gameState.currentTier = preserved.currentTier; gameState.cosmicLaws = preserved.cosmicLaws; gameState.completedChallenges = preserved.completedChallenges; gameState.notation = preserved.notation; gameState.settings = preserved.settings; gameState.activeChallenge = preserved.activeChallenge; applyPersistentLaws(); renderAll(); saveGame(); }
+    function performBigBang() { if (gameState.activeChallenge) { addLogMessage("Cannot perform a Big Bang during a challenge.", 'danger'); return; } const gain = calculatePrestigeGain(); if (gain < 1) return; gameState.nebulaGas += gain; gameState.bigBangCount++; if (gameState.cosmicLaws['cl13']) { gameState.prisms += gameData.cosmicLaws.cl13.effect.amount; addLogMessage(`Gained ${gameData.cosmicLaws.cl13.effect.amount} Prism from Galactic Commerce.`, 'prism'); } addLogMessage(`A new universe is born, granting you ${formatNumber(gain, true)} Nebula Gas!`, 'major'); resetRunState(false); }
+    function startChallenge(id) { if (gameState.activeChallenge) { addLogMessage("You are already in a challenge.", 'danger'); return; } if (!gameData.challenges[id].requirement(gameState)) { addLogMessage("You have not met the requirements for this challenge.", 'danger'); return; } if (confirm(`Are you sure you want to start the "${gameData.challenges[id].name}" challenge? This will reset your current run.`)) { gameState.activeChallenge = id; addLogMessage(`Challenge Started: ${gameData.challenges[id].name}.`, 'major'); resetRunState(true); } }
+    function completeChallenge() { const id = gameState.activeChallenge; if (!id) return; gameState.completedChallenges[id] = true; addLogMessage(`Challenge Complete: ${gameData.challenges[id].name}! Reward unlocked.`, 'major'); gameState.activeChallenge = null; resetRunState(false); }
+    function abandonChallenge(confirmFirst = true) { if (!gameState.activeChallenge) return; if (confirmFirst && !confirm("Are you sure you want to abandon this challenge? Your progress will be lost.")) return; addLogMessage(`Challenge Abandoned: ${gameData.challenges[gameState.activeChallenge].name}.`, 'danger'); gameState.activeChallenge = null; resetRunState(false); }
+    function buyTier() { const nextTier = gameState.currentTier + 1; if (nextTier > Object.keys(gameData.tiers).length) return; const cost = gameData.tiers[nextTier].cost; if (gameState.energy >= cost) { if (confirm(`Are you sure you want to advance to Tier ${nextTier}? This will reset your run, including Prisms and Research, but you will keep Nebula Gas, Cosmic Laws, and Challenge completions.`)) { gameState.currentTier = nextTier; addLogMessage(`Congratulations! You have advanced to Tier ${nextTier}!`, 'major'); resetRunState(false, true); renderTiers(); } } }
+    function toggleNotation() { gameState.notation = gameState.notation === 'standard' ? 'scientific' : 'standard'; updateNotationButton(); }
+    function updateNotationButton() { const mode = gameState.notation.charAt(0).toUpperCase() + gameState.notation.slice(1); dom.notationToggleButton.textContent = `Notation: ${mode}`; }
+    function formatNumber(num, forceStandard = false) { if (num === null || num === undefined || isNaN(num)) return '0'; if (gameState.notation === 'scientific' && num >= 1000 && !forceStandard) return num.toExponential(2); if (num > 0 && num < 0.01 && num !== 0) return num.toFixed(3); if (num < 1000) return parseFloat(num.toFixed(2)).toString(); const suffixes = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc", "Ud", "Dd", "Td", "Qad", "Qid", "Sxd", "Spd", "Od", "Nd", "Vg", "Uvg"]; const i = Math.floor(Math.log10(num) / 3); if (i >= suffixes.length) return num.toExponential(2); const value = (num / Math.pow(1000, i)); const formattedValue = parseFloat(value.toFixed(2)).toString(); return formattedValue + suffixes[i]; }
+    function saveGame(manual = false) { try { const stateToSave = validateAndRepairGameState(JSON.parse(JSON.stringify(gameState))); localStorage.setItem('cosmicForgeSave', JSON.stringify(stateToSave)); if (manual) addLogMessage('Game Saved'); } catch(error) { console.error("Could not save game:", error); if (manual) addLogMessage('ERROR: Could not save game!', 'danger'); } }
+    function hardReset() { if (confirm("Are you SURE you want to delete everything? This includes all Tiers, Nebula Gas, Cosmic Laws, Prisms, and Challenge completions.")) { localStorage.removeItem('cosmicForgeSave'); window.location.reload(); } }
+    // #endregion
 
-    function hardReset() {
-        if (confirm("Are you SURE you want to delete everything? This includes all Tiers, Nebula Gas, Cosmic Laws, Prisms, and Challenge completions.")) {
-            localStorage.removeItem('cosmicForgeSave');
-            window.location.reload();
-        }
-    }
-
+    // #region VISUALS
+    function createClickParticle(x, y) { const particle = document.createElement('div'); particle.classList.add('particle'); const spread = 20; const destX = (Math.random() - 0.5) * spread * 10; const destY = (Math.random() - 0.5) * spread * 10; particle.style.left = `${x}px`; particle.style.top = `${y}px`; particle.style.transform = `translate(${destX}px, ${destY}px)`; dom.particlesContainer.appendChild(particle); setTimeout(() => particle.remove(), 1000); }
+    function createFloatingText(x, y, text, scale = 1) { const el = document.createElement('div'); el.textContent = text; el.classList.add('floating-text'); el.style.left = `${x}px`; el.style.top = `${y}px`; el.style.fontSize = `${1.2 * scale}em`; dom.particlesContainer.appendChild(el); setTimeout(() => el.remove(), 1000); }
     // #endregion
 
     // #region INITIALIZATION
-    
     function init() {
         applyPersistentLaws();
-        updateNotationButton(); // Set initial button text
-        renderAll(); // Creates DOM elements
+        updateNotationButton();
+        renderAll();
+        
+        dom.changelogToggle.checked = gameState.settings.showChangelog;
+        if (gameState.settings.showChangelog) showChangelog();
+
+        let html = ''; const sortedGenerators = Object.keys(gameData.generators).sort((a, b) => gameData.generators[a].baseCost - gameData.generators[b].baseCost);
+        for (const id of sortedGenerators) { const gen = gameData.generators[id]; const state = gameState.generators[id] || { count: 0 }; let milestoneHTML = '<div class="milestone-bar">'; gameData.milestones.forEach(m => { milestoneHTML += `<div class="milestone-pip ${state.count >= m ? 'unlocked' : ''}"></div>`; }); milestoneHTML += '</div>'; html += `<div class="item" id="${id}"><div class="item-info"><div class="item-name">${gen.name}</div><div class="item-desc">${gen.desc}</div><div class="item-prod">Produces +${formatNumber(gen.baseProd)} ${gen.resource}/s each.</div>${milestoneHTML}</div><div class="item-actions"><div class="item-count">${state.count}</div><button class="buy-button" data-id="${id}">Loading...</button></div></div>`; } dom.generatorsContent.innerHTML = html;
+        
         setupEventListeners();
+        
+        // **BUG FIX: Force UI update immediately so prices appear**
+        updateUI(calculateProduction());
+
         setInterval(gameTick, TICK_RATE);
         setInterval(() => saveGame(false), 4000); 
         addLogMessage("The void awaits your command. Forge the first spark of energy.");
     }
+    
+    function initializeGenerators() { /* Logic handled in init for initial load */ }
+    function initializeResearchTree() { let html = ''; const sortedResearch = Object.keys(gameData.research).sort((a,b) => getResearchCost(a) - getResearchCost(b)); for (const id of sortedResearch) { const tech = gameData.research[id]; html += `<div class="tech" id="tech-${id}"><div>${tech.name}</div><small>${tech.desc}</small><div class="tech-time"></div><button class="buy-button tech-button" data-id="${id}"></button></div>`; } dom.researchTree.innerHTML = html; updateResearchUI(); }
+    function updateResearchUI() { const sortedResearch = Object.keys(gameData.research).sort((a,b) => getResearchCost(a) - getResearchCost(b)); const isResearching = gameState.researchState.currentResearch !== null; for (const id of sortedResearch) { const el = document.getElementById(`tech-${id}`); if(!el) continue; const tech = gameData.research[id]; const cost = getResearchCost(id); const duration = calculateResearchTime(id) / 1000; const depsMet = tech.dependencies.every(dep => gameState.research[dep]); const isPurchased = !!gameState.research[id]; if (isPurchased) { el.className = "tech purchased"; el.querySelector('.buy-button').textContent = "Purchased"; el.querySelector('.buy-button').disabled = true; el.style.display = 'flex'; } else if (depsMet) { el.className = "tech available"; el.style.display = 'flex'; const btn = el.querySelector('.buy-button'); if (isResearching) { if (gameState.researchState.currentResearch === id) { btn.textContent = "Researching..."; btn.disabled = true; } else { btn.textContent = "Queue Blocked"; btn.disabled = true; } } else { const affordable = gameState.stardust >= cost; btn.textContent = `Cost: ${formatNumber(cost)} SD`; btn.disabled = !affordable; } el.querySelector('.tech-time').textContent = `Time: ${duration.toFixed(1)}s`; } else { el.style.display = 'none'; } } }
+    function initializePrismTree() { dom.prismTreeContainer.innerHTML = '<div id="prism-canvas"></div>'; const canvas = document.getElementById('prism-canvas'); let html = ''; let connectorsHtml = ''; for (const id in gameData.prisms) { const tech = gameData.prisms[id]; for (const depId of tech.dependencies) { const depTech = gameData.prisms[depId]; if (depTech) { const startPos = depTech.position; const endPos = tech.position; const nodeWidth = 140; const nodeHeight = 90; const x1 = startPos.x + nodeWidth / 2; const y1 = startPos.y + nodeHeight / 2; const x2 = endPos.x + nodeWidth / 2; const y2 = endPos.y + nodeHeight / 2; const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)); const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI); connectorsHtml += `<div class="prism-connector" id="conn-${depId}-${id}" style="width: ${length}px; left: ${x1}px; top: ${y1}px; transform: rotate(${angle}deg);"></div>`; } } } for (const id in gameData.prisms) { const tech = gameData.prisms[id]; html += `<div class="prism-tech" id="prism-${id}" data-id="${id}" style="left: ${tech.position.x}px; top: ${tech.position.y}px;"><div class="prism-tech-name">${tech.name}</div><div class="prism-tech-desc">${tech.desc_long || tech.desc}</div><div class="prism-tech-cost"></div></div>`; } canvas.innerHTML = connectorsHtml + html; }
+    function updatePrismTreeUI() { for (const id in gameData.prisms) { const tech = gameData.prisms[id]; const el = document.getElementById(`prism-${id}`); if(!el) continue; const isPurchased = !!gameState.purchasedPrisms[id]; const depsMet = tech.dependencies.every(dep => gameState.purchasedPrisms[dep]); const canAfford = gameState.prisms >= tech.cost; const costDiv = el.querySelector('.prism-tech-cost'); const descDiv = el.querySelector('.prism-tech-desc'); el.className = 'prism-tech'; 
+        let desc = tech.desc_long || tech.desc;
+        if (tech.effect.type === 'scaling_prism_prod') { const sourceVal = gameState[tech.effect.source]; if (sourceVal > 10) desc += ` (Current: x${(1 + Math.log10(sourceVal) * 0.1).toFixed(2)})`; else desc += " (Inactive < 10)"; }
+        if (tech.effect.type === 'scaling_boost') { const sourceVal = gameState[tech.effect.source]; if (sourceVal > 10) desc += ` (Current: x${(1 + Math.log10(sourceVal) * tech.effect.bonus).toFixed(2)})`; else desc += " (Inactive < 10)"; }
+        if (tech.effect.type === 'playtime_boost') { const mins = (Date.now() - gameState.stats.runStartTime) / 60000; desc += ` (Current: x${(1 + (mins * 0.1)).toFixed(2)})`; }
+        if (tech.effect.type === 'time_prism_boost') { const hrs = (Date.now() - gameState.stats.runStartTime) / 3600000; desc += ` (Current: x${(1 + hrs).toFixed(2)})`; }
+        descDiv.textContent = desc;
+
+        if (isPurchased) { el.classList.add('purchased'); costDiv.textContent = 'Owned'; } else if (depsMet) { if (canAfford) el.classList.add('available'); else el.classList.add('locked'); costDiv.textContent = `Cost: ${formatNumber(tech.cost)} P`; } else { el.classList.add('locked'); el.style.opacity = ''; costDiv.textContent = 'Locked'; } for (const depId of tech.dependencies) { const conn = document.getElementById(`conn-${depId}-${id}`); if(conn) { if (gameState.purchasedPrisms[id] && gameState.purchasedPrisms[depId]) { conn.classList.add('purchased'); } else { conn.classList.remove('purchased'); } } } } }
+    function updateResearchProgressUI() { if (!gameState.researchState.currentResearch) { dom.researchProgressContainer.style.display = 'none'; return; } dom.researchProgressContainer.style.display = 'flex'; const state = gameState.researchState; const techName = gameData.research[state.currentResearch].name; const now = Date.now(); const totalDuration = state.researchEndTime - state.researchStartTime; const elapsedTime = now - state.researchStartTime; const progress = Math.min(100, (elapsedTime / totalDuration) * 100); const timeLeft = Math.max(0, state.researchEndTime - now) / 1000; const minutes = Math.floor(timeLeft / 60); const seconds = Math.floor(timeLeft % 60); dom.researchProgressLabel.textContent = `Researching: ${techName}`; dom.researchProgressBar.style.width = `${progress}%`; dom.researchProgressTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; }
+    function initializeConsumables() { let html = ''; for (const id in gameData.consumables) { const item = gameData.consumables[id]; html += `<div class="consumable-item" id="consumable-item-${id}"><div class="consumable-info"><div class="item-name">${item.name}</div><small>${item.desc}</small></div><div class="consumable-actions"><div class="active-timer"></div><button class="buy-button consumable-button" data-id="${id}"></button></div></div>`; } dom.consumablesContainer.innerHTML = html; }
+    function updateConsumablesUI() { const now = Date.now(); for (const id in gameData.consumables) { const item = gameData.consumables[id]; const state = gameState.consumableState[id] || { cooldown: 0, activeUntil: 0 }; const el = document.getElementById(`consumable-item-${id}`); if(!el) continue; const btn = el.querySelector('.consumable-button'); const timerDiv = el.querySelector('.active-timer'); const cooldownLeft = state.cooldown - now; const activeLeft = state.activeUntil - now; const isTimedBoost = item.type === 'prod_boost' || item.type === 'click_boost' || item.type === 'cost_reduction'; let durationMult = 1; if (gameState.purchasedPrisms['p4_top']) durationMult = 1.5; if (cooldownLeft > 0) { btn.disabled = true; btn.textContent = `Cooldown (${(cooldownLeft / 1000).toFixed(1)}s)`; } else if (isTimedBoost && activeLeft > 0) { btn.disabled = true; btn.textContent = "Active"; } else { const affordable = gameState.energy >= item.cost; btn.disabled = !affordable; btn.textContent = `Cost: ${formatNumber(item.cost)}`; } if (activeLeft > 0) { timerDiv.textContent = `Active: ${(activeLeft / 1000).toFixed(1)}s`; } else { timerDiv.textContent = ''; } } }
+    function renderChallenges() { let html = ''; for (const id in gameData.challenges) { const chal = gameData.challenges[id]; const reqMet = chal.requirement(gameState); const isCompleted = !!gameState.completedChallenges[id]; const isActive = gameState.activeChallenge === id; let classes = 'challenge-item'; if (isCompleted) classes += ' completed'; if (isActive) classes += ' active'; if (!reqMet) classes += ' locked'; let buttonHTML = ''; if (isActive) { buttonHTML = `<button class="challenge-button danger" data-id="${id}" data-action="abandon">Abandon</button>`; } else if (!reqMet) { buttonHTML = `<button class="challenge-button" disabled>${chal.reqDesc}</button>`; } else if (!gameState.activeChallenge && !isCompleted) { buttonHTML = `<button class="challenge-button" data-id="${id}" data-action="start">Start</button>`; } else { buttonHTML = `<button class="challenge-button" disabled>${isCompleted ? 'Completed' : 'Challenge Active'}</button>`; } html += `<div class="${classes}" id="${id}"><div class="item-name">${chal.name} ${isCompleted ? '(✓)' : ''}</div><small class="item-desc">${chal.desc}</small><div class="challenge-reward"><b>Reward:</b> ${chal.rewardDesc}</div>${buttonHTML}</div>`; } if(dom.challengesContainer.innerHTML !== html) dom.challengesContainer.innerHTML = html; }
+    function updateChallengeIndicator() { if (gameState.activeChallenge) { const name = gameData.challenges[gameState.activeChallenge].name; dom.challengeIndicator.textContent = `Challenge Active: ${name}`; dom.challengeIndicator.style.display = 'block'; } else { dom.challengeIndicator.style.display = 'none'; } }
+    function renderTiers() { const currentTier = gameState.currentTier; const nextTier = currentTier + 1; let html = `<h3>Current Tier: ${currentTier}</h3>`; if (nextTier > Object.keys(gameData.tiers).length) { html += `<p>You have reached the maximum Tier!</p>`; } else { const tierData = gameData.tiers[nextTier]; const affordable = gameState.energy >= tierData.cost; html += `<div class="tier-info-box"><h4>Next Tier: ${nextTier}</h4><p class="tier-desc">${tierData.desc}</p><button id="tier-up-button" class="prestige-button" ${affordable ? '' : 'disabled'}>Cost: ${formatNumber(tierData.cost)} Energy</button></div>`; } if(dom.tierInfo.innerHTML !== html) dom.tierInfo.innerHTML = html; }
+    function renderCosmicLaws() { let html = ''; const purchasedLawsCount = Object.keys(gameState.cosmicLaws).length; const sortedLaws = Object.keys(gameData.cosmicLaws).sort((a,b) => gameData.cosmicLaws[a].cost - gameData.cosmicLaws[b].cost); for (const id of sortedLaws) { const law = gameData.cosmicLaws[id]; let dynamicDesc = law.desc; switch(id) { case 'cl3': dynamicDesc = `${law.desc} (Currently: +${formatNumber(gameState.nebulaGas, true)})`; break; case 'cl5': const lawsCount = purchasedLawsCount + (gameState.cosmicLaws[id] ? 0 : 1); const gravityBonus = lawsCount * law.effect.bonus * 100; dynamicDesc = `${law.desc} (Currently: +${gravityBonus.toFixed(0)}%)`; break; case 'cl8': const voidBonus = (gameState.nebulaGas * law.effect.bonus * 100); dynamicDesc = `${law.desc} (Currently: +${formatNumber(voidBonus)}%)`; break; } if(gameState.cosmicLaws[id]) { html += `<div class="tech purchased" id="${id}"><div>${law.name}</div><small>${dynamicDesc}</small></div>`; } else { const affordable = gameState.nebulaGas >= law.cost; html += `<div class="tech available" id="${id}"><div>${law.name}</div><small>${dynamicDesc}</small><button class="buy-button tech-button" data-id="${id}" ${affordable ? '' : 'disabled'}>Cost: ${formatNumber(law.cost, true)} Nebula Gas</button></div>`; } } if(dom.cosmicLawsContainer.innerHTML !== html) dom.cosmicLawsContainer.innerHTML = html; }
+    function updateBuyControls() { document.querySelectorAll('.buy-amt-btn').forEach(btn => { if (btn.dataset.amt == gameState.buyAmount) { btn.classList.add('active'); } else { btn.classList.remove('active'); } }); }
+    function addLogMessage(message, type = 'normal') { const p = document.createElement('p'); p.textContent = `> ${message}`; p.className = type; dom.logMessages.prepend(p); if (dom.logMessages.children.length > 20) { dom.logMessages.lastChild.remove(); } }
 
     init();
-
     // #endregion
 });

@@ -28,12 +28,17 @@
                 <span id="nebula-gas-display" class="resource-value">0</span>
                 <span id="nebula-gas-boost-display" class="resource-ps">(+0% boost)</span>
             </div>
-            <div class="resource-display">
+            <!-- HIDDEN BY DEFAULT: Unlocks at Tier 1 -->
+            <div class="resource-display" style="display: none;">
                 <span class="resource-label">Prisms</span>
                 <span id="prisms-display" class="resource-value">0</span>
                 <span id="prisms-ps-display" class="resource-ps">(+0/s)</span>
             </div>
-            <button id="settings-button" title="Options">⚙️</button>
+            
+            <div class="header-controls">
+                <button id="changelog-button" title="Patch Notes">📜</button>
+                <button id="settings-button" title="Options">⚙️</button>
+            </div>
         </header>
 
         <div id="challenge-indicator">Challenge Active</div>
@@ -51,6 +56,14 @@
                 <div id="forge-container">
                     <button id="forge-button">FORGE</button>
                     <div id="forge-click-value">+1 Energy</div>
+                    
+                    <!-- NEW COMBO UI -->
+                    <div id="combo-container">
+                        <div id="combo-display">Forge Heat: <span id="combo-value">1.00</span>x</div>
+                        <div id="combo-bar-outer">
+                            <div id="combo-bar-inner"></div>
+                        </div>
+                    </div>
                 </div>
                 <div id="log-container">
                     <div class="log-header">LOG</div>
@@ -62,7 +75,8 @@
                 <div id="tabs">
                     <button class="tab-button active" data-tab="generators">Generators</button>
                     <button class="tab-button" data-tab="research">Research</button>
-                    <button class="tab-button" data-tab="prisms">Prisms</button>
+                    <!-- HIDDEN BY DEFAULT: Unlocks at Tier 1 -->
+                    <button class="tab-button" data-tab="prisms" style="display: none;">Prisms</button>
                     <button class="tab-button" data-tab="consumables">Consumables</button>
                     <button class="tab-button" data-tab="challenges">Challenges</button>
                     <button class="tab-button" data-tab="big-bang">The Beyond</button>
@@ -74,6 +88,8 @@
                             <span>Buy Amount:</span>
                             <button class="buy-amt-btn active" data-amt="1">1x</button>
                             <button class="buy-amt-btn" data-amt="10">10x</button>
+                            <button class="buy-amt-btn" data-amt="100">100x</button>
+                            <button class="buy-amt-btn" data-amt="next">Next</button>
                             <button class="buy-amt-btn" data-amt="max">Max</button>
                         </div>
                         <div id="generators-list"></div>
@@ -137,8 +153,38 @@
                 <h2>Options</h2>
                 <button id="save-button" class="option-button">Manual Save</button>
                 <button id="notation-toggle-button" class="option-button">Notation: Standard</button>
+                
+                <div class="option-row">
+                    <span>Show Changelog on Start</span>
+                    <label class="switch">
+                        <input type="checkbox" id="changelog-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
                 <button id="hard-reset-button" class="option-button danger">HARD RESET (Deletes All Progress)</button>
                 <p class="save-info">Game saves automatically every 4 seconds.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Changelog Modal -->
+    <div id="changelog-modal" class="modal hidden">
+        <div class="changelog-content">
+            <span id="changelog-close-button" class="modal-close-button">&times;</span>
+            <div class="changelog-layout">
+                <div class="changelog-sidebar">
+                    <h3>Update History</h3>
+                    <div id="changelog-nav">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                <div class="changelog-details">
+                    <h2 id="changelog-title">Update Details</h2>
+                    <div id="changelog-body">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
